@@ -4,12 +4,9 @@ import axios from "axios";
 
 const Register = () => {
 
-    
-
     const [user, setUser] = useState({
-        firstname: "",
-        lastname: "",
         username: "",
+        email: "",
         password: ""
       })
     const handleChange = (e) => {
@@ -28,27 +25,20 @@ const Register = () => {
         <>
         <h1>Register</h1>
         <form onSubmit={(e)=>handleSubmit(e)}>
-            <label htmlFor="firstname">Enter First Name</label>
-            <input 
-                type="text"
-                value={user.firstname}
-                name="firstname"
-                required
-                onChange={handleChange}
-            />
-            <label htmlFor="lastname">Enter Last Name</label>
-            <input 
-                type="text"
-                value={user.lastname}
-                name="lastname"
-                required
-                onChange={handleChange}
-            />
+            
             <label htmlFor="username">Enter Username</label>
             <input 
                 type="text"
                 value={user.username}
                 name="username"
+                required
+                onChange={handleChange}
+            />
+             <label htmlFor="username">Enter email</label>
+            <input 
+                type="email"
+                value={user.email}
+                name="email"
                 required
                 onChange={handleChange}
             />
