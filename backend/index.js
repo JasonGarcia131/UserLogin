@@ -1,8 +1,9 @@
 const express = require('express');
 const app = express();
-const PORT = process.env.PORT
+const PORT = process.env.PORT || 3005;
 const {sequelize} = require("./models");
 
+require("dotenv").config();
 
 const connectDb = async () => {
     try{
@@ -12,16 +13,16 @@ const connectDb = async () => {
         console.log("error", e)
     }
 }
-
-app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
+app.use(express.json());
 
 
 const RegisterController = require("./controllers/RegisterController");
-app.use("/register", RegisterController)
+app.use("/register", RegisterController);
 
 (async () =>{
     await connectDb();
     app.listen(PORT, ()=>console.log("Server listening on Port 3005"))
 })();
 
-//Need to set PORT environemnt variable
+
