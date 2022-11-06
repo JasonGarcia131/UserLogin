@@ -10,6 +10,7 @@ router.post("/new-user", async (req,res)=>{
     try{
         const {username,email,password} = req.body;
         console.log("req.body", req.body)
+        //Check to see if email or username exists in the database.
         const existingUsername = await User.findOne({
             where: {
                 username: username
@@ -45,7 +46,6 @@ router.post("/new-user", async (req,res)=>{
 
 })
 
-
 router.get("/users", async (req,res)=>{
     console.log("users route hit");
     console.log("Users DB", User)
@@ -54,6 +54,31 @@ router.get("/users", async (req,res)=>{
         res.send(users)
     }catch(e){
         console.log("error");
+    }
+})
+
+router.post("/login", async (req,res)=>{
+    try{
+        console.log("login route hit");
+        const {username, password} = req.body;
+
+        const existingUsername = await User.findOne({
+            where: {
+                username: username
+            }
+        })
+        if(!existingUsername){
+            return res.status(401).json("Username or password is incorrect");
+        }
+        console.log("Attempting to log in...")
+        const validPassword = await bcrypt.compare(password, existingUsername.password);
+        if(!validPassword){
+            return res.status(401).json("Username or password is incorrect");
+        }
+
+        console.log("User logged in")
+    }catch(e){
+        res.status(500).json(e)
     }
 })
 
