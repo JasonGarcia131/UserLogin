@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const PORT = process.env.PORT || 3005;
 const {sequelize} = require("./models");
+const cors = require("cors");
 
 require("dotenv").config();
 
@@ -13,6 +14,8 @@ const connectDb = async () => {
         console.log("error", e)
     }
 }
+
+app.use(cors());
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json());
 
