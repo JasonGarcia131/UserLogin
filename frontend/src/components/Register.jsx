@@ -9,6 +9,10 @@ const Register = () => {
         email: "",
         password: ""
       })
+
+    const [errorMessage, setErrorMessage] = useState("");
+    const [missingField, setMissingField] = useState("");
+
     const handleChange = (e) => {
       const {name, value} = e.target
       setUser((prevData)=>({...prevData, [name]: value}))
@@ -17,12 +21,20 @@ const Register = () => {
     const handleSubmit = (e) =>{
         e.preventDefault();
         if(user){
-            axios.post("http://localhost:3005", user)
+            axios.post("http://localhost:3005/register/new-user", user)
+            // .then(setUser(prevData=>({...prevData, username: "", email: "", password: ""})))
+            .catch(e=>{
+                console.log("error", e.response.data)
+                setErrorMessage(e.response.data)
+                setTimeout(()=>{setErrorMessage("")}, 3000);
+            })
+            
         }
+        
     }
     console.log("User", user)
     return(
-        <>
+        <div className="formWrapper">
         <h1>Register</h1>
         <form onSubmit={(e)=>handleSubmit(e)}>
             
@@ -34,6 +46,7 @@ const Register = () => {
                 required
                 onChange={handleChange}
             />
+            <p>{missingField.length > 0 ? missingField : ""}</p>
              <label htmlFor="username">Enter email</label>
             <input 
                 type="email"
@@ -42,6 +55,7 @@ const Register = () => {
                 required
                 onChange={handleChange}
             />
+             <p>{missingField.length > 0 ? missingField : ""}</p>
             <label htmlFor="password">Enter Password</label>
             <input 
                 type="text"
@@ -50,9 +64,10 @@ const Register = () => {
                 required
                 onChange={handleChange}
             />
-            <button>Submit</button>
+            <button id="register-btn" className="submit-btn" >Register</button>
+            <p>{errorMessage.length > 0 ? errorMessage : "" }</p>
         </form>
-        </>
+        </div>
     )
 }
 

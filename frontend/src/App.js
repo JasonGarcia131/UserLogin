@@ -4,15 +4,16 @@ import Login from './components/Login';
 
 function App() {
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-  }
-
   return (
     <div className="App">
-      <Register handleSubmit={handleSubmit}/>
-      <Login  handleSubmit={handleSubmit}/>
+      <div className="formContainer">
+        <Register/>
+      </div>
+     
+      <div  className="formContainer">
+        <Login/>
+      </div>
+      
     </div>
   );
 }
