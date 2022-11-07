@@ -46,9 +46,10 @@ router.post("/new-user", async (req,res)=>{
 router.get("/users", async (req,res)=>{
     try{    
         const users = await User.findAll();
-        res.send(users)
+        res.json(users);
+       
     }catch(e){
-        console.log("error");
+        res.status(500).json(e)
     }
 })
 
