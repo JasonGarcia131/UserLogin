@@ -38,15 +38,17 @@ router.post("/new-user", async (req,res)=>{
         const token = jwtGenerator(newUser.id);
         return res.json({token});
     }catch(e){
-        res.status(500).send(e);
+        return res.status(500).send(e);
     }
 
 })
 
 router.get("/users", async (req,res)=>{
     try{    
-        const users = await User.findAll();
-        res.json(users);
+        const users = await User.findAll({
+            attributes: ['username', 'email']
+        });
+        return res.json(users);
        
     }catch(e){
         res.status(500).json(e)
