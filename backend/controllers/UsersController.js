@@ -43,10 +43,10 @@ router.post("/new-user", async (req,res)=>{
 
 })
 
-router.get("/users", async (req,res)=>{
+router.get("/all-users", async (req,res)=>{
     try{    
         const users = await User.findAll({
-            attributes: ['username', 'email']
+            attributes: ['id','username', 'email']
         });
         return res.json(users);
        
@@ -72,6 +72,29 @@ router.post("/login", async (req,res)=>{
         }
     }catch(e){
         res.status(500).json(e)
+    }
+})
+
+router.delete("/delete/:id", async (req, res)=>{
+
+    try{
+        //Saving id paramenter passed from the request
+        const user_id = req.params.id
+
+        //Deleting user from database 
+        if(user_id != null) { 
+            await User.destroy({
+            where: {
+                id: user_id
+            }
+        }) 
+            res.status(204).send("successfully deleted user");
+        }else{
+            res.status(500).send("did not delete user");
+        } 
+        
+    }catch(e){
+        res.status(500).json(e);
     }
 })
 

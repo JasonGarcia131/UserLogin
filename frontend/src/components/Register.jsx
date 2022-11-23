@@ -1,6 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import axios from "axios";
+import {Link} from "react-router-dom";
 
 const Register = () => {
 
@@ -22,7 +23,7 @@ const Register = () => {
         e.preventDefault();
         if(user){
             axios.post("http://localhost:3005/register/new-user", user)
-            // .then(setUser(prevData=>({...prevData, username: "", email: "", password: ""})))
+            .then(setErrorMessage("Registered"))
             .catch(e=>{
                 console.log("error", e.response.data)
                 setErrorMessage(e.response.data)
@@ -35,6 +36,7 @@ const Register = () => {
     console.log("User", user)
     return(
         <div className="formWrapper">
+        <Link to="/">back</Link>
         <h1>Register</h1>
         <form onSubmit={(e)=>handleSubmit(e)}>
             
@@ -58,7 +60,7 @@ const Register = () => {
              <p>{missingField.length > 0 ? missingField : ""}</p>
             <label htmlFor="password">Enter Password</label>
             <input 
-                type="text"
+                type="password"
                 value={user.password}
                 name="password"
                 required

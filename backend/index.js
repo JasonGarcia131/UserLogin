@@ -20,8 +20,8 @@ app.use(express.urlencoded({ extended: true }))
 app.use(express.json());
 
 
-const RegisterController = require("./controllers/RegisterController");
-app.use("/register", RegisterController);
+const UsersController = require("./controllers/UsersController");
+app.use("/users", UsersController);
 
 (async () =>{
     await connectDb();

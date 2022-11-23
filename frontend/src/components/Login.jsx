@@ -1,6 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import axios from "axios";
+import {Link} from "react-router-dom";
 
 const Login = () => {
 
@@ -30,6 +31,7 @@ const Login = () => {
 
       console.log("Login", user)
     return <div className="formWrapper">
+        <Link to="/">back</Link>
             <h1>Login</h1>
             <form onSubmit={(e)=>handleSubmit(e)}>
                 <label htmlFor="username">Username</label>
