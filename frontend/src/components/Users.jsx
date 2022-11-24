@@ -73,12 +73,10 @@ const Users = () => {
     return (
         <table className="users-table">
             <thead>
-                <td>
-                    Username
-                </td>
-                <td>
-                    Email
-                </td>
+                <tr>
+                    <th>Username</th>
+                    <th>Email</th>
+                </tr>
             </thead>
             <tbody>
                 {mappedUsers}
