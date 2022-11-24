@@ -6,10 +6,10 @@ const jwtGenerator = require("../jtwGenerator");
 
 router.post("/new-user", async (req,res)=>{
     //Check if the user exists in the database.
-        //1. Destruct the req.body to get username, email, password.
     try{
+        //1. Destruct the req.body to get username, email, password.
         const {username,email,password} = req.body;
-        console.log("req.body", req.body)
+
         //2. Check to see if email or username exists in the database.
         const existingUsername = await User.findOne({
             where: {
