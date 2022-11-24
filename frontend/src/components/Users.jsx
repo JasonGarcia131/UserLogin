@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-
+import { Link } from "react-router-dom";
 
 const Users = () => {
 
@@ -26,7 +26,7 @@ const Users = () => {
             ...prevData,
             id: toRemoveUser.id,
             isPopUp: true,
-            message: `Are you sure you want to delete user ${toRemoveUser.id}`
+            message: `Are you sure you want to delete username: ${toRemoveUser.username}?`
         }));
     }
 
@@ -63,7 +63,8 @@ const Users = () => {
                 <td>
                     {user.email}
                 </td>
-                <button onClick={() => popUpMessage(user)}>Remove</button>
+                <button onClick={() => popUpMessage(user)}>X</button>
+                {/* Edit button in progress */}
                 <button>Edit</button>
             </tr>
         )
@@ -84,14 +85,14 @@ const Users = () => {
                 {/* Conditiionally render pop up message */}
                 {confirmationPopUp.isPopUp ?
                     <div className="confirmationPopUp">
-                        {confirmationPopUp.message}
+                        <p id="popUpText">{confirmationPopUp.message}</p>
                         <button onClick={confirmed}>Yes</button>
                         <button onClick={() => setConfirmationPopUp((prevData) => ({ ...prevData, isPopUp: false }))}>No</button>
                     </div>
                     : null
                 }
             </tbody>
-
+            <Link to="/">Return to home</Link>
         </table>
     )
 }

@@ -20,8 +20,8 @@ const Login = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         if(user){
-            axios.post("http://localhost:3005/register/login", user)
-            .then(setErrorMessage("Logged in"))
+            axios.post("http://localhost:3005/users/login", user)
+            .then(()=>setErrorMessage("Logged in"))
             .catch(e=>{
                 setErrorMessage(e.response.data);
                 setTimeout(()=>{setErrorMessage("")}, 3000);
