@@ -2,6 +2,8 @@ import React from "react";
 import { useState } from "react";
 import axios from "axios";
 import {Link} from "react-router-dom";
+// import AuthContext from "../../api/context/AuthProvider";
+import { useContext } from "react";
 
 const Login = () => {
 
@@ -9,6 +11,8 @@ const Login = () => {
         username: "",
         password: ""
     })
+
+    // const {setAuth} = useContext(AuthContext);
 
     const [errorMessage, setErrorMessage] = useState("");
 

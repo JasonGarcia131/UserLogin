@@ -25,7 +25,7 @@ form{
 }
 
 form > input{
-  width: 30%;
+  width: 60%;
   margin: 10px auto;
 }
 
@@ -109,6 +109,20 @@ td{
 .users-table{
   background-color: white;
   text-align: center;
+}
+
+.hideInstructions{
+  position: absolute;
+  left: -100%;
+  overflow: hidden; 
+}
+
+.instructions{
+ z-index: 3;
+ width: 60%;
+ margin: auto;
+ background-color: grey;
+ border-radius: 2%;
 }
 
 .confirmationPopUp{
