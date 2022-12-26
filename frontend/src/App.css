@@ -6,7 +6,6 @@ body{
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  background: linear-gradient(125deg, black, blueviolet, rgb(150, 66, 230) )
 }
 
 input{

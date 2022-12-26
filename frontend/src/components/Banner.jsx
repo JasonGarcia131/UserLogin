@@ -1,12 +1,22 @@
 import React from "react";
 import "../pages/profile.css"
 
-function Banner() {
+function Banner(props) {
+
+    const { setTheme, theme } = props;
 
     return (
         <header>
-            <div className="banner">
+            <div id="banner" className={theme === "light" ? "lightBanner" : "shadowBanner"}>
             </div>
+            <nav className="navBarWrapper">
+                <p>
+                    What's on your mind?
+                </p>
+                <button onClick={()=>setTheme("light")}>Light</button>
+                <button onClick={()=>setTheme("shadow")}>Shadow</button>
+                <button>Affirmations</button>
+            </nav>
         </header>
     )
 }

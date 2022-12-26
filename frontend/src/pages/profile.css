@@ -1,6 +1,79 @@
-.banner{
+header{
     width: 100%;
     height: 600px;
-    background-image: url("../images/winterbackground.jpg");
+}
+
+#banner {
+    width: 100%;
+    height: 100%;
     background-size: cover;
+}
+
+#mainWrapper{
+    border: 1px solid red;
+}
+
+.navBarWrapper {
+    position: absolute;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    top: 0;
+    right: 0;
+    width: 50%;
+    background-color: white;
+}
+
+.lightBanner {
+    background-image: url("../images/winterbackground.jpg");
+}
+
+.shadowBanner {
+    background-image: url("../images/shadowWinterBackground.jpg");
+}
+
+.lightTheme {
+    background-color: white;
+    width: 100%;
+}
+
+.shadowTheme {
+    background-color: black;
+    width: 100%;
+}
+
+.lightAside{
+background-color: white;
+}
+
+.shadowAside{
+    background-color: black;
+    color: white;
+}
+
+#userCardWrapper {
+    width: 30%;
+    height: 100%;
+    position: absolute;
+    top: 20%;
+}
+
+.profilePictureWrapper {
+    width: 50%;
+    height: 145px;
+    text-align: center;
+    margin: 0 auto;
+    border-radius: 50%;
+    background-color: yellow;
+}
+
+.userNameWrapper {
+    width: 50%;
+    text-align: center;
+    margin: 5% auto;
+}
+
+.userBioWrapper {
+    width: 50%;
+    margin: 0 auto;
 }
