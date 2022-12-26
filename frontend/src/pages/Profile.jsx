@@ -1,5 +1,6 @@
 import Banner from "../components/Banner";
 import UserCard from "../components/UserCard";
+import MainCard from "../components/MainCard";
 import { useState } from "react";
 import { useEffect } from "react";
 
@@ -17,6 +18,7 @@ function Profile() {
         <div >
             <Banner theme={theme} setTheme={setTheme} />
             <UserCard theme={theme}/>
+            <MainCard theme={theme}/>
         </div>
     )
 

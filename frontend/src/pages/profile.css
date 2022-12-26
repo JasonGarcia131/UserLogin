@@ -5,6 +5,14 @@ header {
     height: 600px;
 }
 
+main{
+    width: 70%;
+    text-align: center;
+    position: absolute;
+    right: 0;
+    color: black;
+}
+
 
 #banner {
     width: 100%;
@@ -50,6 +58,17 @@ header {
     width: 50%;
 }
 
+
+.postTextBoxWrapper{
+    width: 100%;
+    height: 100px;
+    border: 1px solid black;
+}
+
+.postTextBoxWrapper::placeholder{
+    position: absolute;
+    top: 0;
+}
 /* Light Theme Styles */
 
 .lightBanner {

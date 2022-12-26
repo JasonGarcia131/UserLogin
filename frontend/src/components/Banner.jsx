@@ -15,7 +15,7 @@ function Banner(props) {
                 </p>
                 <button onClick={()=>setTheme("light")}>Light</button>
                 <button onClick={()=>setTheme("shadow")}>Shadow</button>
-                <button>Affirmations</button>
+                <button>{theme==="light" ? <p>Affirmation</p> : <p>Shadow Thought</p>}</button>
             </nav>
         </header>
     )
