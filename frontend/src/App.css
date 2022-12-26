@@ -75,9 +75,9 @@ td{
 }
 
 .App{
-  width: 100vmin;
-  height: 50vmin;
-  margin: 20% auto;
+  width: 100%;
+  height: 0;
+  padding-bottom: 30%;
   display: flex;
   flex-direction: column;
   justify-content: space-around;

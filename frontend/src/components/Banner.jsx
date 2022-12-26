@@ -1,10 +1,12 @@
 import React from "react";
+import "../pages/profile.css"
 
-function Banner () {
+function Banner() {
 
-    return(
+    return (
         <header>
-            <h1>Banner</h1>
+            <div className="banner">
+            </div>
         </header>
     )
 }
