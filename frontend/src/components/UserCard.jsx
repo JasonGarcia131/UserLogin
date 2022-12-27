@@ -15,6 +15,13 @@ function UserCard(props) {
             <div className="userBioWrapper">
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam nostrum enim assumenda exercitationem, dolores doloremque soluta quia vel saepe possimus!
             </div>
+            <div className="friendsWrapper">
+                <a href="#">Followers</a>0
+                <a href="#">Following</a>0
+            </div>
+            <div>
+                <a href="#">Search friends by sign</a>
+            </div>
         </aside>
     )
 }

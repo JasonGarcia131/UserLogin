@@ -1,5 +1,6 @@
 import React from "react";
 import PostTextBox from "./PostTextBox";
+import Post from "./Post";
 
 function MainCard (props) {
 
@@ -9,6 +10,14 @@ function MainCard (props) {
         <main>
             {theme === "light" ? <h2>Affirmations</h2> : <h2>Shadow Thoughts</h2>}
             <PostTextBox/>
+            <Post/>
+            <Post/>
+            <Post/>
+            <Post/>
+            <Post/>
+            <Post/>
+            <Post/>
+            <Post/>
         </main>
     )
 }
