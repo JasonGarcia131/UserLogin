@@ -4,7 +4,10 @@ import axios from "axios";
 import {Link} from "react-router-dom";
 import AuthContext from "../context/AuthProvider";
 import { useContext } from "react";
+import axios from "../api/axios";
 
+
+const LOGIN_URL = '/auth'
 const Login = () => {
 
     const [user, setUser] = useState({
@@ -12,7 +15,7 @@ const Login = () => {
         password: ""
     })
 
-    // const {setAuth} = useContext(AuthContext);
+    const {setAuth} = useContext(AuthContext);
 
     const [errorMessage, setErrorMessage] = useState("");
 
@@ -21,15 +24,11 @@ const Login = () => {
         setUser((prevData)=>({...prevData, [name]: value}))
     }
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         if(user){
-            axios.post("http://localhost:3005/users/login", user)
-            .then(()=>setErrorMessage("Logged in"))
-            .catch(e=>{
-                setErrorMessage(e.response.data);
-                setTimeout(()=>{setErrorMessage("")}, 3000);
-            })
+            const response = axios.post("http://localhost:3005/users/login", user)
+           
         }
     }
 
