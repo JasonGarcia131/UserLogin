@@ -89,6 +89,16 @@ td{
   border: 1px solid white;
 
 }
+.submit-btn:hover{
+  background-color: rgb(69, 2, 131);
+}
+
+
+/* .submit-btn:active{  
+  background-color: rgb(187, 127, 243);
+  animation: name duration timing-function delay iteration-count direction fill-mode;
+} */
+
 
 .homepage-wrapper{
   width: 50%;
