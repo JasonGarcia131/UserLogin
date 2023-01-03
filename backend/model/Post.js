@@ -1,15 +1,30 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
+// author, content, theme, created at, updated at
+
 const postSchema = new Schema({
-    firstname: {
+    author: {
+        type: mongoose.Schema.Types.ObjectId, ref: 'User',
+        required: true
+    },
+    content:  {
         type: String,
         required: true
     },
-    lastname: {
+    theme:  {
         type: String,
-        required: true
-    }
+        required: true,
+        default: "light"
+    },
+    createdAt:  {
+        type: Date,
+        default: Date.now()
+    },
+    updatedAt:  {
+        type: Date,
+        default: Date.now()
+    },
 });
 
-module.exports = mongoose.model('Employee', postSchema);
+module.exports = mongoose.model('Post', postSchema);

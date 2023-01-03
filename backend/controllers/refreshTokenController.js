@@ -17,18 +17,15 @@ const handleRefreshToken = async (req, res) => {
             console.log("decoded--------------", decoded)
             if (err || foundUser.username !== decoded.username) return res.sendStatus(403);
             const roles = Object.values(foundUser.roles);
-            const posts = Object.values(foundUser.posts);
-            const friends = Object.values(foundUser.friends);
 
             const accessToken = jwt.sign(
                 {
                     "UserInfo": {
+                        "userId": foundUser._id,
                         "username": foundUser.username,
                         "profilePicture": foundUser.profilePicture,
-                        "posts": posts,
                         "roles": roles,
-                        "bio": bio,
-                        "friends": friends
+                        "bio": foundUser.bio,
                     }
                 },
                 `${process.env.ACCESS_TOKEN_SECRET}`,

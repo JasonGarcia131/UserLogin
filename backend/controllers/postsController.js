@@ -6,15 +6,23 @@ const getAllPosts = async (req, res) => {
     res.json(posts);
 }
 
+const getUserPosts = async (req, res) => {
+    const posts = await Post.find({author: req.params.id});
+
+    if (!posts) return res.status(204).json({ 'message': 'No Posts found.' });
+    res.json(posts);
+}
+
 const createPost = async (req, res) => {
-    if (!req?.body?.firstname || !req?.body?.lastname) {
-        return res.status(400).json({ 'message': 'First and last names are required' });
+    if (!req?.body?.author || !req?.body?.content) {
+        return res.status(400).json({ 'message': 'author and content are required' });
     }
 
     try {
         const result = await Post.create({
-            firstname: req.body.firstname,
-            lastname: req.body.lastname
+            author: String(req.body.author),
+            content: req.body.content,
+            theme: req?.body?.theme
         });
 
         res.status(201).json(result);
@@ -61,8 +69,11 @@ const getPost = async (req, res) => {
 
 module.exports = {
     getAllPosts,
+    getUserPosts,
     createPost,
     updatePost,
     deletePost,
     getPost
 }
+
+//Cast to ObjectId failed for value "undefined" (type string) at path "author" for model "Post"

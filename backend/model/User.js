@@ -18,35 +18,18 @@ const userSchema = new Schema({
         type: String,
         required: true
     },
-    posts: [{
-        postTheme: {
-            type: String,
-            default: "light"
-        },
-        post: String
-    }],
     profilePicture: String,
     bio: {
         type: String,
         default: "About Me"
     },
-    friends: {
-        following: [{
-            followingUserId: Number,
-            followingUserName: String,
-            isFollowBack: {
-                type: Boolean,
-                default: false
-            }
-        }],
-        followers: [{
-            followerUserId: Number,
-            followerUserName: String,
-            isFollowBack: {
-                type: Boolean,
-                default: false
-            }
-        }]
+    createdAt: {
+        type: Date,
+        default: Date.now()
+    },
+    updatedAt: {
+        type: Date,
+        default: Date.now()
     },
     refreshToken: String
 });

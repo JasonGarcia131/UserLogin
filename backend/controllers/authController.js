@@ -9,26 +9,21 @@ const handleLogin = async (req, res) => {
     if (!user || !pwd) return res.status(400).json({ 'message': 'Username and password are required.' });
 
     const foundUser = await User.findOne({ username: user }).exec();
-    console.log("found user", foundUser)
     if (!foundUser) return res.sendStatus(401); //Unauthorized 
     // evaluate password 
     const match = await bcrypt.compare(pwd, foundUser.password);
     if (match) {
         const roles = Object.values(foundUser.roles).filter(Boolean);
-        const posts = Object.values(foundUser.posts).filter(Boolean);
-        const friends = Object.values(foundUser.friends);
 
-        console.log("line 17 authController: posts", posts)
         // create JWTs
         const accessToken = jwt.sign(
             {
                 "UserInfo": {
+                    "userId": foundUser._id,
                     "username": foundUser.username,
                     "profilePicture": foundUser.profilePicture,
-                    "posts": posts,
                     "roles": roles,
                     "bio": foundUser.bio,
-                    "friends": friends
                 }
             },
             `${process.env.ACCESS_TOKEN_SECRET}`,
