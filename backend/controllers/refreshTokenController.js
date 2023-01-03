@@ -14,23 +14,27 @@ const handleRefreshToken = async (req, res) => {
         refreshToken,
         `${process.env.REFRESH_TOKEN_SECRET}`,
         (err, decoded) => {
-            console.log("decoded--------------",decoded)
+            console.log("decoded--------------", decoded)
             if (err || foundUser.username !== decoded.username) return res.sendStatus(403);
             const roles = Object.values(foundUser.roles);
             const posts = Object.values(foundUser.posts);
+            const friends = Object.values(foundUser.friends);
+
             const accessToken = jwt.sign(
                 {
                     "UserInfo": {
                         "username": foundUser.username,
                         "profilePicture": foundUser.profilePicture,
                         "posts": posts,
-                        "roles": roles
+                        "roles": roles,
+                        "bio": bio,
+                        "friends": friends
                     }
                 },
                 `${process.env.ACCESS_TOKEN_SECRET}`,
                 { expiresIn: '10m' }
             );
-            res.json({accessToken })
+            res.json({ accessToken })
         }
     );
 }

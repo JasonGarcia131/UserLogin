@@ -26,6 +26,28 @@ const userSchema = new Schema({
         post: String
     }],
     profilePicture: String,
+    bio: {
+        type: String,
+        default: "About Me"
+    },
+    friends: {
+        following: [{
+            followingUserId: Number,
+            followingUserName: String,
+            isFollowBack: {
+                type: Boolean,
+                default: false
+            }
+        }],
+        followers: [{
+            followerUserId: Number,
+            followerUserName: String,
+            isFollowBack: {
+                type: Boolean,
+                default: false
+            }
+        }]
+    },
     refreshToken: String
 });
 

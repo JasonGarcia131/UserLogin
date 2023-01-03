@@ -46,9 +46,11 @@ const Login = () => {
                 : undefined
 
             const posts = decode?.UserInfo?.posts || [];
+            const friends = decode?.UserInfo?.friends || {};
             const profilePicture = decode?.UserInfo?.profilePicture || "";
+            const bio = decode?.UserInfo?.bio || "";
 
-            setAuth({ user, profilePicture, posts, accessToken });
+            setAuth({ user, profilePicture, posts, friends, accessToken });
             setUser('');
             setPwd('');
             navigate(from, { replace: true });

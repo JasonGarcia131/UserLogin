@@ -16,6 +16,8 @@ const handleLogin = async (req, res) => {
     if (match) {
         const roles = Object.values(foundUser.roles).filter(Boolean);
         const posts = Object.values(foundUser.posts).filter(Boolean);
+        const friends = Object.values(foundUser.friends);
+
         console.log("line 17 authController: posts", posts)
         // create JWTs
         const accessToken = jwt.sign(
@@ -24,7 +26,9 @@ const handleLogin = async (req, res) => {
                     "username": foundUser.username,
                     "profilePicture": foundUser.profilePicture,
                     "posts": posts,
-                    "roles": roles
+                    "roles": roles,
+                    "bio": foundUser.bio,
+                    "friends": friends
                 }
             },
             `${process.env.ACCESS_TOKEN_SECRET}`,
