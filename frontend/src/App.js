@@ -1,15 +1,16 @@
-import Register from './components/Register';
-import Login from './components/Login';
-import Home from './components/Home';
+import Register from './features/Register';
+import Login from './features/Login';
+import Home from './pages/Home';
 import Layout from './components/Layout';
-import Editor from './components/Editor';
-import Admin from './components/Admin'
-import Missing from './components/Missing';
-import Unauthorized from './components/Unauthorized';
-import Lounge from './components/Lounge';
-import LinkPage from './components/LinkPage';
+import Editor from './features/Editor';
+import Admin from './features/Admin'
+import Missing from './pages/Missing';
+import Unauthorized from './pages/Unauthorized';
+import Lounge from './pages/Lounge';
+import LinkPage from './pages/LinkPage';
 import RequireAuth from './components/RequireAuth';
 import PersistLogin from './components/PersistLogin';
+import Profile from './pages/Profile';
 import { Routes, Route } from 'react-router-dom';
 
 const ROLES = {
@@ -34,6 +35,11 @@ function App() {
           <Route element={<RequireAuth allowedRoles={[ROLES.User, ROLES.Admin]} />}>
             <Route path="/" element={<Home />} />
           </Route>
+
+          <Route element={<RequireAuth allowedRoles={[ROLES.User]} />}>
+            <Route path="/profile" element={<Profile />} />
+          </Route>
+
 
           <Route element={<RequireAuth allowedRoles={[ROLES.Editor]} />}>
             <Route path="editor" element={<Editor />} />
