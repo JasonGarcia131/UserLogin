@@ -1,19 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import PostTextBox from "./PostTextBox";
 import Post from "./Post";
 import "../pages/profile.css"
 
 function MainCard (props) {
 
-    const {theme, user} = props;
+    const {theme, user, posts} = props;
 
-    const posts = user?.posts;
+    const {id, username, profilePicture} = user;
 
-    const username = user.user;
-
-    const profilePicture = user.profilePicture;
-
-    const mappedPost = posts?.map((post, i) => {
+    const mappedPost = posts?.content?.map((post, i) => {
         return(
             <Post key={i} username={username} profilePicture={profilePicture} post={post.post}/>
         )
@@ -22,7 +18,7 @@ function MainCard (props) {
     return(
         <main className="postWrapper">
             {theme === "light" ? <h2>Affirmations</h2> : <h2>Shadow Thoughts</h2>}
-            <PostTextBox/>
+            <PostTextBox theme={theme} id={id} />
             {mappedPost}
         </main>
     )

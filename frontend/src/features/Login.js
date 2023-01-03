@@ -45,12 +45,11 @@ const Login = () => {
                 ? jwt_decode(accessToken)
                 : undefined
 
-            const posts = decode?.UserInfo?.posts || [];
-            const friends = decode?.UserInfo?.friends || {};
             const profilePicture = decode?.UserInfo?.profilePicture || "";
             const bio = decode?.UserInfo?.bio || "";
+            const id = decode?.UserInfo?.userId || "";
 
-            setAuth({ user, profilePicture, posts, friends, accessToken });
+            setAuth({id, user, profilePicture, accessToken });
             setUser('');
             setPwd('');
             navigate(from, { replace: true });

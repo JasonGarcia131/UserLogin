@@ -12,20 +12,20 @@ function UserCard(props) {
     const { theme, user } = props;
     const { username, profilePicture, friends, bio } = user;
 
-    const following = friends[0];
-    const followers = friends[1];
+    // const following = friends[0];
+    // const followers = friends[1];
 
     const getTotalFriends = (arrayOfFriends) => {
         let totalFriends = 0;
         return totalFriends = arrayOfFriends.length;
     }
 
-    useEffect(() => {
+    // useEffect(() => {
 
-        setFollowersTotal(getTotalFriends(following));
-        setFollowingTotal(getTotalFriends(followers));
+    //     setFollowersTotal(getTotalFriends(following));
+    //     setFollowingTotal(getTotalFriends(followers));
 
-    }, [])
+    // }, [])
 
     return (
         <aside id="userCardWrapper" className={theme === "light" ? "lightAside" : "shadowAside"}>
@@ -39,8 +39,8 @@ function UserCard(props) {
                 {bio}
             </div>
             <div className="friendsWrapper">
-                <a href="#">Followers</a>{followersTotal}
-                <a href="#">Following</a>{followingTotal}
+                {/* <a href="#">Followers</a>{followersTotal}
+                <a href="#">Following</a>{followingTotal} */}
             </div>
             <div>
                 <a href="#">Search friends by sign</a>
