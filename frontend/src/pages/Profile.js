@@ -38,6 +38,8 @@ function Profile() {
 
     }, [theme]);
 
+    console.log("posts", posts)
+
     const getPosts = async () => {
         try {
 
@@ -72,11 +74,11 @@ function Profile() {
     }
 
     return (
-        <main >
+        <div>
             <Banner theme={theme} setTheme={setTheme} />
-            <UserCard theme={theme} user={user} />
+            <UserCard theme={theme} user={user} numberOfPosts={posts?.length} />
             <MainCard theme={theme} user={user} posts={posts} setPost={setPost} post={post} handleSubmit={handleSubmit} errorMessage={errorMessage} />
-        </main>
+        </div>
     )
 
 }

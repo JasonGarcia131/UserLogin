@@ -5,13 +5,13 @@ import useAuth from "../hooks/useAuth";
 
 function UserCard(props) {
 
-    const [followersTotal, setFollowersTotal] = useState(0);
-    const [followingTotal, setFollowingTotal] = useState(0);
+    const [totalPosts, setTotalPosts] = useState(0);
 
 
-    const { theme, user } = props;
+    const { theme, user, numberOfPosts } = props;
     const { username, profilePicture, bio } = user;
 
+    console.log("number od posts", numberOfPosts)
     // const following = friends[0];
     // const followers = friends[1];
 
@@ -39,8 +39,7 @@ function UserCard(props) {
                 {bio}
             </div>
             <div className="friendsWrapper">
-                {/* <a href="#">Followers</a>{followersTotal}
-                <a href="#">Following</a>{followingTotal} */}
+               {numberOfPosts} <span>Manifestations</span>
             </div>
             <div>
                 <a href="#">Search friends by sign</a>

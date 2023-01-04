@@ -5,23 +5,27 @@ import "../pages/profile.css"
 
 function MainCard (props) {
 
-    const {theme, user, posts, setPost, post, handleSubmit, errorMessage} = props;
+    const {theme, user, posts, setPost, post, handleSubmit, errorMessage, handleDelete} = props;
 
     const {id, username, profilePicture} = user;
 
+    // const handleDelete = () => {
+
+    // }
+
     const mappedPost = posts?.map((post, i) => {
         return(
-            <Post key={i} username={username} profilePicture={profilePicture} post={post.content}/>
+            <Post key={i} username={username} profilePicture={profilePicture} post={post.content} handleDelete={handleDelete}/>
         )
     })
 
     return(
-        <main className="postWrapper">
+        <section className="postWrapper">
             {theme === "light" ? <h2>Affirmations</h2> : <h2>Shadow Thoughts</h2>}
             <PostTextBox theme={theme} id={id} setPost={setPost} post={post} handleSubmit={handleSubmit}/>
             <p>{errorMessage.length > 0 ? errorMessage : ""}</p>
             {mappedPost}
-        </main>
+        </section>
     )
 }
 
