@@ -18,6 +18,7 @@ const userSchema = new Schema({
         type: String,
         required: true
     },
+    posts: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Post' }],
     profilePicture: String,
     bio: {
         type: String,

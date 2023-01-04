@@ -1,4 +1,5 @@
 const Post = require('../model/Post');
+const User = require('../model/User');
 
 const getAllPosts = async (req, res) => {
     const posts = await Post.find();
@@ -7,7 +8,10 @@ const getAllPosts = async (req, res) => {
 }
 
 const getUserPosts = async (req, res) => {
-    const posts = await Post.find({author: req.params.id});
+
+    const id = req.params.id;
+
+    const posts = await User.findById({_id: id}).populate('posts');
 
     if (!posts) return res.status(204).json({ 'message': 'No Posts found.' });
     res.json(posts);
@@ -20,7 +24,7 @@ const createPost = async (req, res) => {
 
     try {
         const result = await Post.create({
-            author: String(req.body.author),
+            author: req.body.author,
             content: req.body.content,
             theme: req?.body?.theme
         });

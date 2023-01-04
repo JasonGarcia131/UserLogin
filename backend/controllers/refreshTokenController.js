@@ -6,7 +6,6 @@ const handleRefreshToken = async (req, res) => {
     const cookies = req.cookies;
     if (!cookies?.jwt) return res.sendStatus(401);
     const refreshToken = cookies.jwt;
-    console.log("line 9 in refreshToken", refreshToken)
     const foundUser = await User.findOne({ refreshToken }).exec();
     if (!foundUser) return res.sendStatus(403); //Forbidden 
     // evaluate jwt 
@@ -14,7 +13,6 @@ const handleRefreshToken = async (req, res) => {
         refreshToken,
         `${process.env.REFRESH_TOKEN_SECRET}`,
         (err, decoded) => {
-            console.log("decoded--------------", decoded)
             if (err || foundUser.username !== decoded.username) return res.sendStatus(403);
             const roles = Object.values(foundUser.roles);
 
