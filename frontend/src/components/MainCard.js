@@ -9,9 +9,9 @@ function MainCard (props) {
 
     const {id, username, profilePicture} = user;
 
-    const mappedPost = posts?.content?.map((post, i) => {
+    const mappedPost = posts?.map((post, i) => {
         return(
-            <Post key={i} username={username} profilePicture={profilePicture} post={post.post}/>
+            <Post key={i} username={username} profilePicture={profilePicture} post={post.content}/>
         )
     })
 

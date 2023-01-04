@@ -4,21 +4,29 @@ import MainCard from "../components/MainCard";
 import { useState } from "react";
 import { useEffect } from "react";
 import useAuth from "../hooks/useAuth";
-import axios from "../api/axios";
+import axios, { axiosPrivate } from "../api/axios";
+import jwt_decode from "jwt-decode";
 
 function Profile() {
 
     const [theme, setTheme] = useState("");
     const [posts, setPosts] = useState([]);
-    const {auth} = useAuth();
+    const { auth } = useAuth();
 
-    console.log("auth", auth)
+    console.log("auth in profile", auth);
 
-    const user = auth;
+    const decode = auth.accessToken
+        ? jwt_decode(auth.accessToken)
+        : undefined
 
-    const {id} = user
+    const user = decode?.UserInfo;
+    const id = user?.userId;
 
-    console.log("user", user);
+    console.log("id in profile", id);
+    console.log("username in profile", user?.username);
+    console.log("bio in profile", user?.bio);
+
+
 
     useEffect(() => {
         setTheme("light");
@@ -28,10 +36,11 @@ function Profile() {
     }, []);
 
     const getPosts = async () => {
-        try{
-            const response = await axios.get(`/posts/${id}`);
+        try {
+            const response = await axiosPrivate.get(`/posts/${id}`);
+            console.log("response in profile", response);
             setPosts(response.data);
-        }catch(e){
+        } catch (e) {
             console.log(e);
         }
     }
@@ -42,7 +51,7 @@ function Profile() {
         <main >
             <Banner theme={theme} setTheme={setTheme} />
             <UserCard theme={theme} user={user} />
-            <MainCard theme={theme} user={user} posts={posts}/>
+            <MainCard theme={theme} user={user} posts={posts?.posts} />
         </main>
     )
 

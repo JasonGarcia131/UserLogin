@@ -10,7 +10,7 @@ function UserCard(props) {
 
 
     const { theme, user } = props;
-    const { username, profilePicture, friends, bio } = user;
+    const { username, profilePicture, bio } = user;
 
     // const following = friends[0];
     // const followers = friends[1];

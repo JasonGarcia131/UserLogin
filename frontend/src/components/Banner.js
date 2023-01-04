@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import "../pages/profile.css"
 
 function Banner(props) {
@@ -13,8 +14,9 @@ function Banner(props) {
                 <p>
                     What's on your mind?
                 </p>
-                <button onClick={()=>setTheme("light")}>Light</button>
-                <button onClick={()=>setTheme("shadow")}>Shadow</button>
+                <button><Link to='/'>Link page</Link></button>
+                {/* <button onClick={()=>setTheme("light")}>Light</button>
+                <button onClick={()=>setTheme("shadow")}>Shadow</button> */}
                 <button>{theme==="light" ? <p>Affirmation</p> : <p>Shadow Thought</p>}</button>
             </nav>
         </header>

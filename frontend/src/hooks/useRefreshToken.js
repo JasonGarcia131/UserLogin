@@ -1,5 +1,6 @@
 import axios from '../api/axios';
 import useAuth from './useAuth';
+import jwt_decode from "jwt-decode";
 
 const useRefreshToken = () => {
     const { setAuth } = useAuth();
@@ -8,14 +9,11 @@ const useRefreshToken = () => {
         const response = await axios.get('/refresh', {
             withCredentials: true
         });
-        setAuth(prev => {
-            // console.log(JSON.stringify(prev));
-            console.log("response in refresh line 13", response.data.accessToken);
-            console.log("response in refresh line 14", response);
 
+        setAuth(prev => {
+    
             return {
                 ...prev,
-                roles: response.data.roles,
                 accessToken: response.data.accessToken
             }
         });

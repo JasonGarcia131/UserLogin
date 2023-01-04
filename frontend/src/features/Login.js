@@ -41,15 +41,7 @@ const Login = () => {
             );
             const accessToken = response?.data?.accessToken;
 
-            const decode = accessToken
-                ? jwt_decode(accessToken)
-                : undefined
-
-            const profilePicture = decode?.UserInfo?.profilePicture || "";
-            const bio = decode?.UserInfo?.bio || "";
-            const id = decode?.UserInfo?.userId || "";
-
-            setAuth({id, user, profilePicture, accessToken });
+            setAuth({accessToken });
             setUser('');
             setPwd('');
             navigate(from, { replace: true });
