@@ -1,5 +1,7 @@
+const { mongo, default: mongoose } = require('mongoose');
 const Post = require('../model/Post');
 const User = require('../model/User');
+const objectId = mongoose.Types.ObjectId;
 
 const getAllPosts = async (req, res) => {
     const posts = await Post.find();
@@ -11,22 +13,25 @@ const getUserPosts = async (req, res) => {
 
     const id = req.params.id;
 
-    const posts = await User.findById({_id: id}).populate('posts');
+    const posts = await Post.find({author: id}).populate('author');
 
     if (!posts) return res.status(204).json({ 'message': 'No Posts found.' });
     res.json(posts);
 }
 
 const createPost = async (req, res) => {
-    if (!req?.body?.author || !req?.body?.content) {
-        return res.status(400).json({ 'message': 'author and content are required' });
+    const {id, postTheme, content} = req.body
+
+    if (!id || !content) {
+        return res.status(400).json({ 'message': 'id and content are required' });
     }
 
     try {
+
         const result = await Post.create({
-            author: req.body.author,
+            author: req.body.id,
             content: req.body.content,
-            theme: req?.body?.theme
+            theme: req?.body?.postTheme
         });
 
         res.status(201).json(result);
