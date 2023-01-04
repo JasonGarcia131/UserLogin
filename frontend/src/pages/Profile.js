@@ -9,11 +9,11 @@ import jwt_decode from "jwt-decode";
 
 function Profile() {
 
-    const [theme, setTheme] = useState("");
+    const [theme, setTheme] = useState("light");
     const [posts, setPosts] = useState([]);
-    const { auth } = useAuth();
+    const [errorMessage, setErrorMessage] = useState("");
 
-    console.log("auth in profile", auth);
+    const { auth } = useAuth();
 
     const decode = auth.accessToken
         ? jwt_decode(auth.accessToken)
@@ -22,18 +22,21 @@ function Profile() {
     const user = decode?.UserInfo;
     const id = user?.userId;
 
-    console.log("id in profile", id);
-    console.log("username in profile", user?.username);
-    console.log("bio in profile", user?.bio);
-
-
+    const [post, setPost] = useState({
+        id: id,
+        postTheme: theme,
+        content: ""
+    });
 
     useEffect(() => {
-        setTheme("light");
 
         getPosts();
 
-    }, []);
+        setPost((prevData) => ({ ...prevData, postTheme: theme }));
+
+    }, [theme]);
+
+
 
     const getPosts = async () => {
         try {
@@ -45,13 +48,31 @@ function Profile() {
         }
     }
 
-    console.log("Theme", theme);
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        if (!post) return setErrorMessage("Oops... please try again.");
+
+        if (post.length > 100) return setErrorMessage("You've exceeded the number of words!");
+
+        // try{
+        console.log("id in profile handle submit", post?.id)
+        console.log("post theme", post?.postTheme)
+        console.log("post.content in handle submit", post?.content)
+
+        // const response = await axiosPrivate.put(`/posts`,post);
+        //     console.log(response)
+        // }catch(e){
+        //     console.log(e)
+        // }
+
+    }
 
     return (
         <main >
             <Banner theme={theme} setTheme={setTheme} />
             <UserCard theme={theme} user={user} />
-            <MainCard theme={theme} user={user} posts={posts?.posts} />
+            <MainCard theme={theme} user={user} posts={posts?.posts} setPost={setPost} post={post} handleSubmit={handleSubmit} errorMessage={errorMessage} />
         </main>
     )
 

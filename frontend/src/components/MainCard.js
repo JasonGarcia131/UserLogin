@@ -5,7 +5,7 @@ import "../pages/profile.css"
 
 function MainCard (props) {
 
-    const {theme, user, posts} = props;
+    const {theme, user, posts, setPost, post, handleSubmit, errorMessage} = props;
 
     const {id, username, profilePicture} = user;
 
@@ -18,7 +18,8 @@ function MainCard (props) {
     return(
         <main className="postWrapper">
             {theme === "light" ? <h2>Affirmations</h2> : <h2>Shadow Thoughts</h2>}
-            <PostTextBox theme={theme} id={id} />
+            <PostTextBox theme={theme} id={id} setPost={setPost} post={post} handleSubmit={handleSubmit}/>
+            <p>{errorMessage.length > 0 ? errorMessage : ""}</p>
             {mappedPost}
         </main>
     )
