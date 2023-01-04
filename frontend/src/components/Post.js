@@ -1,6 +1,6 @@
 function Post(props) {
 
-    const {username, post, profilePicture } = props;
+    const {username, post, profilePicture, i, handleDelete } = props;
 
     return (
         <article>
@@ -11,6 +11,7 @@ function Post(props) {
                 <h3>{username}</h3>
             </div>
             <p>{post}</p>
+            <button onClick={()=>handleDelete(i)}>Delete</button>
         </article>
     )
 }
