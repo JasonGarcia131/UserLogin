@@ -13,14 +13,14 @@ const getUserPosts = async (req, res) => {
 
     const id = req.params.id;
 
-    const posts = await Post.find({author: id}).populate('author');
+    const posts = await Post.find({author: id}).sort({createdAt: -1}).populate('author');
 
     if (!posts) return res.status(204).json({ 'message': 'No Posts found.' });
     res.json(posts);
 }
 
 const createPost = async (req, res) => {
-    const {id, postTheme, content} = req.body
+    const {id, postTheme, content, isPrivate} = req.body
 
     if (!id || !content) {
         return res.status(400).json({ 'message': 'id and content are required' });
@@ -31,7 +31,8 @@ const createPost = async (req, res) => {
         const result = await Post.create({
             author: req.body.id,
             content: req.body.content,
-            theme: req?.body?.postTheme
+            theme: req?.body?.postTheme,
+            isPrivate: req?.body?.isPrivate
         });
 
         res.status(201).json(result);
