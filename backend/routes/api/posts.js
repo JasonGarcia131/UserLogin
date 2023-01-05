@@ -3,6 +3,8 @@ const router = express.Router();
 const PostsController = require('../../controllers/PostsController');
 const ROLES_LIST = require('../../config/roles_list');
 const verifyRoles = require('../../middleware/verifyRoles');
+const paginate = require("../../middleware/paginate");
+const Post = require("../../model/Post");
 
 router.route('/')
     .get(PostsController.getAllPosts)
@@ -10,7 +12,8 @@ router.route('/')
     .put(verifyRoles(ROLES_LIST.Admin, ROLES_LIST.Editor), PostsController.updatePost)
     .delete(verifyRoles(ROLES_LIST.Admin), PostsController.deletePost);
 
-router.route('/:id')
-    .get(PostsController.getUserPosts);
+router.route('/paginate')
+    .get(paginate(Post),PostsController.getUserPosts);
+
 
 module.exports = router;

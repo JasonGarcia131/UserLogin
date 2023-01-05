@@ -11,12 +11,12 @@ const getAllPosts = async (req, res) => {
 
 const getUserPosts = async (req, res) => {
 
-    const id = req.params.id;
+    // const id = req.params.id;
 
-    const posts = await Post.find({author: id}).sort({createdAt: -1}).populate('author');
+    // const posts = await Post.find({author: id}).sort({createdAt: -1}).populate('author');
 
-    if (!posts) return res.status(204).json({ 'message': 'No Posts found.' });
-    res.json(posts);
+    // if (!posts) return res.status(204).json({ 'message': 'No Posts found.' });
+    res.json(res.paginatedResults);
 }
 
 const createPost = async (req, res) => {
