@@ -30,9 +30,10 @@ a {
 }
 
 .navBarWrapper {
+    font-weight: 700;
     width: 100%;
     position: fixed;
-    bottom: 0%;
+    top: 1%;
     z-index: 2;
     display: flex;
     flex-direction: row;
@@ -46,7 +47,7 @@ a {
 
 .lightNavButton {
     color: black;
-    
+
 }
 
 .shadowNavButton {
@@ -113,18 +114,29 @@ a {
 .lightUserCard {
     background-image: url("https://th.bing.com/th/id/R.60336657091d86bf4755f7c888e614ed?rik=TCWKLLCDubfk5g&riu=http%3a%2f%2fwww.pixelstalk.net%2fwp-content%2fuploads%2f2016%2f08%2fAndromeda-Galaxy-Milky-Way.jpg&ehk=plGXCabGQ7dAx6YArvO0TQgNmO5%2fwPr1PYQ3sXk9KTQ%3d&risl=1&pid=ImgRaw&r=0");
     background-size: cover;
-    background-position:50%;
+    background-position: 50%;
 
 }
 
 .shadowUserCard {
     background-image: url("https://th.bing.com/th/id/OIP.kMF0WT5Ir9UjwwgrRAK5BAHaEK?pid=ImgDet&rs=1");
     background-size: cover;
-    background-position:50%;
+    background-position: 50%;
 
 }
 
 /* Post Card */
+
+select {
+    width: 20%;
+    appearance: none;
+    border: none;
+    background: transparent;
+}
+
+option{
+    color: white;
+}
 
 article {
     text-align: left;
@@ -134,7 +146,7 @@ article {
     flex-direction: column;
     justify-content: space-between;
     margin-top: 30px;
-    background-position:50%;
+    background-position: 50%;
     background-size: cover;
     color: white;
 }
@@ -173,15 +185,22 @@ article>p {
     margin-bottom: 15px;
 }
 
-.lightPostCard{
+.lightPostCard {
     background-image: url("https://th.bing.com/th/id/R.60336657091d86bf4755f7c888e614ed?rik=TCWKLLCDubfk5g&riu=http%3a%2f%2fwww.pixelstalk.net%2fwp-content%2fuploads%2f2016%2f08%2fAndromeda-Galaxy-Milky-Way.jpg&ehk=plGXCabGQ7dAx6YArvO0TQgNmO5%2fwPr1PYQ3sXk9KTQ%3d&risl=1&pid=ImgRaw&r=0");
 
 }
 
-.shadowPostCard{
+.shadowPostCard {
     background-image: url("https://th.bing.com/th/id/OIP.kMF0WT5Ir9UjwwgrRAK5BAHaEK?pid=ImgDet&rs=1");
 
 }
+
+.deleteButtonWrapper{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
 
 /* Text box */
 
@@ -208,6 +227,13 @@ article>p {
 .postTextBoxWrapper::placeholder {
     position: absolute;
     top: 0;
+}
+
+.textBoxControls {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 }
 
 

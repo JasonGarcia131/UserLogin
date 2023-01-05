@@ -11,7 +11,7 @@ function Profile() {
 
     const [theme, setTheme] = useState("light");
     const [posts, setPosts] = useState([]);
-    const [errorMessage, setErrorMessage] = useState("");
+    const [message, setMessage] = useState("");
 
     const { auth } = useAuth();
 
@@ -25,7 +25,8 @@ function Profile() {
     const [post, setPost] = useState({
         id: id,
         postTheme: theme,
-        content: ""
+        content: "",
+        isPrivate: false
     });
 
     useEffect(() => {
@@ -44,6 +45,7 @@ function Profile() {
         try {
 
             const response = await axiosPrivate.get(`/posts/${id}`);
+
             setPosts(response.data);
 
         } catch (e) {
@@ -56,18 +58,22 @@ function Profile() {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        if (!post) return setErrorMessage("Oops... please try again.");
+        if (post.content.length === 0) return setMessage("Oops... please try again.");
 
-        if (post.length > 100) return setErrorMessage("You've exceeded the number of words!");
+        if (post.length > 100) return setMessage("You've exceeded the number of words!");
 
         try {
 
             const response = await axiosPrivate.post(`/posts`, post);
             console.log(response)
 
+            setMessage("Entry recored");
+            window.location.reload();
+
+
         } catch (e) {
 
-            console.log(e)
+            setMessage(e);
 
         }
 
@@ -77,7 +83,7 @@ function Profile() {
         <div>
             <Banner theme={theme} setTheme={setTheme} />
             <UserCard theme={theme} user={user} numberOfPosts={posts?.length} />
-            <MainCard theme={theme} user={user} posts={posts} setPost={setPost} post={post} handleSubmit={handleSubmit} errorMessage={errorMessage} />
+            <MainCard theme={theme} user={user} posts={posts} setPost={setPost} post={post} handleSubmit={handleSubmit} message={message} />
         </div>
     )
 

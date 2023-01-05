@@ -39,7 +39,7 @@ function UserCard(props) {
                 {bio}
             </p>
             <div className="friendsWrapper">
-               {numberOfPosts} <span>Manifestations</span>
+               {numberOfPosts} <span>Journal Entries</span>
             </div>
         </aside>
     )
