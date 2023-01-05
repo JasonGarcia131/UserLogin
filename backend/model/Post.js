@@ -17,6 +17,10 @@ const postSchema = new Schema({
         required: true,
         default: "light"
     },
+    isPrivate: {
+        type: Boolean,
+        default: false
+    },
     createdAt:  {
         type: Date,
         default: Date.now()

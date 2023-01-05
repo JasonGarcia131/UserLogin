@@ -19,7 +19,10 @@ const userSchema = new Schema({
         required: true
     },
     posts: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Post' }],
-    profilePicture: String,
+    profilePicture: {
+        type: String,
+        default: ""
+    },
     bio: {
         type: String,
         default: "About Me"
