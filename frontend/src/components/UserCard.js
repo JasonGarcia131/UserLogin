@@ -28,21 +28,18 @@ function UserCard(props) {
     // }, [])
 
     return (
-        <aside id="userCardWrapper" className={theme === "light" ? "lightAside" : "shadowAside"}>
+        <aside id="userCardWrapper" className={theme === "light" ? "lightUserCard" : "shadowUserCard"}>
             <div className="profilePictureWrapper">
                 <img className="profilePicture" src={profilePicture} alt="husky" />
             </div>
-            <div className="userNameWrapper">
+            <h1 className="userNameWrapper">
                 {username}
-            </div>
-            <div className="userBioWrapper">
+            </h1>
+            <p className="userBioWrapper">
                 {bio}
-            </div>
+            </p>
             <div className="friendsWrapper">
                {numberOfPosts} <span>Manifestations</span>
-            </div>
-            <div>
-                <a href="#">Search friends by sign</a>
             </div>
         </aside>
     )

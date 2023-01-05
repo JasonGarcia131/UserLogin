@@ -6,9 +6,9 @@ function NavBar(props) {
 
     return (
         <nav className="navBarWrapper">
-            <button onClick={() => setTheme("light")}>Light</button>
             <button><Link to='/'>Home</Link></button>
-            <button onClick={() => setTheme("shadow")}>Shadow</button>
+            <button className={theme === "light" ? "lightNavButton" : "shadowNavButton"} onClick={() => setTheme("light")}>Light</button>
+            <button className={theme === "light" ? "lightNavButton" : "shadowNavButton"} onClick={() => setTheme("shadow")}>Shadow</button>
         </nav>
     )
 }

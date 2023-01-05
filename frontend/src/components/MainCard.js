@@ -15,7 +15,7 @@ function MainCard (props) {
 
     const mappedPost = posts?.map((post, i) => {
         return(
-            <Post key={i} username={username} profilePicture={profilePicture} post={post.content} handleDelete={handleDelete}/>
+            <Post key={i} username={username} profilePicture={profilePicture} post={post.content} handleDelete={handleDelete} theme={theme}/>
         )
     })
 
