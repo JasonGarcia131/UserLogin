@@ -134,7 +134,7 @@ select {
     background: transparent;
 }
 
-option{
+option {
     color: white;
 }
 
@@ -195,10 +195,18 @@ article>p {
 
 }
 
-.deleteButtonWrapper{
+.deleteButtonWrapper {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+}
+
+.hide {
+    visibility: hidden;
+}
+
+.unhide {
+    visibility:visible;
 }
 
 

@@ -13,6 +13,7 @@ function Profile() {
     const [posts, setPosts] = useState([]);
     const [message, setMessage] = useState("");
 
+
     const { auth } = useAuth();
 
     const decode = auth.accessToken
@@ -44,9 +45,10 @@ function Profile() {
     const getPosts = async () => {
         try {
 
-            const response = await axiosPrivate.get(`/posts/${id}`);
+            const response = await axiosPrivate.get(`/posts/paginate/?id=${id}&page=1&limit=1`);
+            console.log("results",response.data.results);
 
-            setPosts(response.data);
+            setPosts(response.data.results);
 
         } catch (e) {
 
@@ -65,11 +67,11 @@ function Profile() {
         try {
 
             const response = await axiosPrivate.post(`/posts`, post);
-            console.log(response)
+            console.log("response in profile", response);
+            const newPost = response?.data;
+            setPosts((prevData)=>[...prevData, newPost]);
 
             setMessage("Entry recored");
-            window.location.reload();
-
 
         } catch (e) {
 
