@@ -1,12 +1,12 @@
 function Post(props) {
 
-    const { username, post, profilePicture, i, handleDelete, theme } = props;
+    const { username, content, profilePicture, theme, date } = props;
 
-    const date = new Date(post.createdAt);
+    const newDate = new Date(date);
 
-    const month = date.getMonth() + 1;
-    const day = date.getDate() + 1;
-    const year = date.getFullYear();
+    const month = newDate.getMonth() + 1;
+    const day = newDate.getDate() + 1;
+    const year = newDate.getFullYear();
     const dateOfPost = `${month}/${day}/${year}`
 
 
@@ -22,7 +22,7 @@ function Post(props) {
                 <h3 id="postUsername">{username}</h3>
                 <p id="postDate">{dateOfPost}</p>
             </div>
-            <p>{post?.content}</p>
+            <p>{content}</p>
         </article>
     )
 }

@@ -209,6 +209,17 @@ article>p {
     visibility:visible;
 }
 
+.paginateNav{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-content: center;
+    align-items: center;
+font-size: 1rem;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
 
 /* Text box */
 

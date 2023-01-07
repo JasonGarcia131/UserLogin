@@ -10,17 +10,13 @@ const getAllPosts = async (req, res) => {
 }
 
 const getUserPosts = async (req, res) => {
-
-    // const id = req.params.id;
-
-    // const posts = await Post.find({author: id}).sort({createdAt: -1}).populate('author');
-
-    // if (!posts) return res.status(204).json({ 'message': 'No Posts found.' });
-    res.json(res.paginatedResults);
+    const paginatedResults = res.paginatedResults;
+    console.log("pag res", paginatedResults)
+    res.json(paginatedResults);
 }
 
 const createPost = async (req, res) => {
-    const {id, postTheme, content, isPrivate} = req.body
+    const { id, postTheme, content, isPrivate } = req.body
 
     if (!id || !content) {
         return res.status(400).json({ 'message': 'id and content are required' });

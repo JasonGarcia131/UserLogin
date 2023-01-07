@@ -6,11 +6,24 @@ import { useEffect } from "react";
 import useAuth from "../hooks/useAuth";
 import { axiosPrivate } from "../api/axios";
 import jwt_decode from "jwt-decode";
+import Paginate from "../components/Paginate";
 
+const LIMIT = 10;
 function Profile() {
 
     const [theme, setTheme] = useState("light");
-    const [posts, setPosts] = useState([]);
+    const [paginatedPosts, setPaginatedPosts] = useState([]);
+    const [page, setPage] = useState({
+        next: {
+            page: 0,
+            limit: 0
+        },
+        previous: {
+            page: 0,
+            limit: 0
+        },
+        current: 0
+    });
     const [message, setMessage] = useState("");
 
 
@@ -32,23 +45,29 @@ function Profile() {
 
     useEffect(() => {
 
-        getPosts();
-
-        setPost((prevData) => ({ ...prevData, postTheme: theme }));
-
-        return () => setPosts([]);
-
+        getPosts(1);
+        
     }, [theme]);
 
-    console.log("posts", posts)
+    console.log("posts", paginatedPosts)
 
-    const getPosts = async () => {
+    const getPosts = async (nextPage) => {
         try {
 
-            const response = await axiosPrivate.get(`/posts/paginate/?id=${id}&page=1&limit=1`);
-            console.log("results",response.data.results);
+            const response = await axiosPrivate.get(`/posts/paginate/?id=${id}&page=${nextPage}&limit=${LIMIT}&theme=${theme}`);
+            console.log("response", response)
+            console.log("results", response.data.results);
 
-            setPosts(response.data.results);
+            setPage({
+                next: response?.data?.next,
+                previous: response?.data?.previous,
+                current: response?.data?.previous?.page + 1,
+                total: Math.ceil((response?.data?.total)/LIMIT)
+
+            })
+            setPaginatedPosts(
+                response?.data?.results
+            );
 
         } catch (e) {
 
@@ -68,8 +87,9 @@ function Profile() {
 
             const response = await axiosPrivate.post(`/posts`, post);
             console.log("response in profile", response);
-            const newPost = response?.data;
-            setPosts((prevData)=>[...prevData, newPost]);
+            window.location.reload();
+            // const newPost = response?.data;
+            // setPosts((prevData)=>[...prevData, newPost]);
 
             setMessage("Entry recored");
 
@@ -81,11 +101,16 @@ function Profile() {
 
     }
 
+
+    console.log("next page", page.next?.page)
+    console.log("previous page", page.previous?.page)
+
+
     return (
         <div>
             <Banner theme={theme} setTheme={setTheme} />
-            <UserCard theme={theme} user={user} numberOfPosts={posts?.length} />
-            <MainCard theme={theme} user={user} posts={posts} setPost={setPost} post={post} handleSubmit={handleSubmit} message={message} />
+            <UserCard theme={theme} user={user} numberOfPosts={paginatedPosts?.length} />
+            <MainCard theme={theme} user={user} posts={paginatedPosts} setPost={setPost} post={post} handleSubmit={handleSubmit} message={message} page={page} getPosts={getPosts} />
         </div>
     )
 

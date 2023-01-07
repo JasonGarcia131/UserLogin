@@ -1,18 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, {useState } from "react";
 import PostTextBox from "./PostTextBox";
 import Post from "./Post";
 import "../pages/profile.css"
+import Paginate from "./Paginate";
 
 function MainCard(props) {
 
     const [editMode, setEditMode] = useState(false);
 
-    const { theme, user, posts, setPost, post, handleSubmit, message } = props;
+    const { theme, user, posts, setPost, post, handleSubmit, message, page, getPosts } = props;
 
     const { id, username, profilePicture } = user;
-
-    const lightPosts = posts?.filter(post => post.theme === "light");
-    const shadowPosts = posts?.filter(post => post.theme === "shadow");
 
     const handleDelete = (i) => {
         console.log("clicked delete")
@@ -20,27 +18,13 @@ function MainCard(props) {
     }
 
     //////////Need to find to hide delete button
-
-    const mappedPost = theme === "light"
-        ?
-        lightPosts?.map((post, i) => {
+        console.log("posts", posts)
+    const  mappedPost = posts?.map((post, i) => {
             return (
                 <div key={i}>
-                    <Post username={username} profilePicture={profilePicture} post={post} handleDelete={handleDelete} theme={theme} />
+                    <Post username={post.author.username} profilePicture={post.author.profilePicture} content={post.content} handleDelete={handleDelete} theme={post.theme} date={post.createdAt} />
                     <div className="deleteButtonWrapper">
                         <button onClick={() => handleDelete(i)} className={editMode ? "hide" : "unhide"}>Delete</button>
-                        <p>{post.isPrivate ? "Private" : "Public"}</p>
-                    </div>
-                </div>
-            )
-        })
-        :
-        shadowPosts?.map((post, i) => {
-            return (
-                <div key={i} >
-                    <Post username={username} profilePicture={profilePicture} post={post} handleDelete={handleDelete} theme={theme} />
-                    <div className="deleteButtonWrapper">
-                        <button className={editMode ? "hide" : "unhide"} onClick={() => handleDelete(i)}>Delete</button>
                         <p>{post.isPrivate ? "Private" : "Public"}</p>
                     </div>
                 </div>
@@ -50,9 +34,10 @@ function MainCard(props) {
     return (
         <section className="postWrapper">
             {theme === "light" ? <h2>Affirmations</h2> : <h2>Shadow Thoughts</h2>}
-            <div className={!editMode ? "hide" : "unhide"} onClick={()=>setEditMode(!editMode)}>Delete Entries</div>
+            {/* <div className={!editMode ? "hide" : "unhide"} onClick={()=>setEditMode(!editMode)}>Delete Entries</div> */}
             <PostTextBox theme={theme} id={id} setPost={setPost} post={post} handleSubmit={handleSubmit} />
             <p>{message.length > 0 ? message : ""}</p>
+            <Paginate page={page} getPosts={getPosts}/>
             {mappedPost}
         </section>
     )
