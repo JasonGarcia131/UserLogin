@@ -8,7 +8,7 @@ import { axiosPrivate } from "../api/axios";
 import jwt_decode from "jwt-decode";
 import Paginate from "../components/Paginate";
 
-const LIMIT = 10;
+const LIMIT = 5;
 function Profile() {
 
     const [theme, setTheme] = useState("light");
@@ -45,6 +45,7 @@ function Profile() {
 
     useEffect(() => {
 
+        // setPaginatedPosts([]);
         getPosts(1);
         
     }, [theme]);
@@ -55,8 +56,6 @@ function Profile() {
         try {
 
             const response = await axiosPrivate.get(`/posts/paginate/?id=${id}&page=${nextPage}&limit=${LIMIT}&theme=${theme}`);
-            console.log("response", response)
-            console.log("results", response.data.results);
 
             setPage({
                 next: response?.data?.next,
@@ -65,9 +64,9 @@ function Profile() {
                 total: Math.ceil((response?.data?.total)/LIMIT)
 
             })
-            setPaginatedPosts(
-                response?.data?.results
-            );
+            
+            setPaginatedPosts(response?.data?.results);
+            // setPaginatedPosts([...paginatedPosts, response.data.results])
 
         } catch (e) {
 
@@ -86,7 +85,6 @@ function Profile() {
         try {
 
             const response = await axiosPrivate.post(`/posts`, post);
-            console.log("response in profile", response);
             window.location.reload();
             // const newPost = response?.data;
             // setPosts((prevData)=>[...prevData, newPost]);
@@ -100,11 +98,6 @@ function Profile() {
         }
 
     }
-
-
-    console.log("next page", page.next?.page)
-    console.log("previous page", page.previous?.page)
-
 
     return (
         <div>
