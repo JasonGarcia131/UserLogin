@@ -6,34 +6,48 @@ import Paginate from "./Paginate";
 import { handleInfiniteScroll } from "./handlePaginate";
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { useEffect } from "react";
+import { axiosPrivate } from "../api/axios";
+import axios from "../api/axios";
 
 
 function MainCard(props) {
 
     const [editMode, setEditMode] = useState(false);
 
-    const { theme, user, posts, setPost, post, handleSubmit, message, page, getPosts } = props;
+    const { theme, user, paginatedPosts, setPost, post, handleSubmit, message, page, getPosts, setPaginatedPosts } = props;
 
     const { id, username, profilePicture } = user;
 
-    const handleDelete = (i) => {
-        console.log("clicked delete")
-        setEditMode(!editMode);
+    const handleDelete = async (id, showDeleteButton) => {
+        console.log("clicked delete on post", id)
+        
+        if (!id) return setEditMode(!editMode);
+
+        try{
+            const response = await axios.delete(`/posts/${id}`);
+            console.log("post deleted", response.data)
+            const filteredPost = paginatedPosts.filter(post=>post.id != response.data.id);
+            console.log("filtered post", filteredPost)
+            setPaginatedPosts(filteredPost);
+        }catch(e){
+            console.log("error", e)
+        }
     }
 
     useEffect(() => {
         
-    }, [theme]);
+    }, [theme, paginatedPosts]);
 
     //////////Need to find to hide delete button
-    console.log("posts in main card", posts.flat())
+    console.log("posts in main card", paginatedPosts)
     //commented to test infinte scroll feature.
-    const mappedPost = posts?.map((post, i) => {
+    const mappedPost = paginatedPosts?.map((post, i) => {
         return (
-            <div key={i}>
+            <div key={i} >
                 <Post username={post.author.username} profilePicture={post.author.profilePicture} content={post.content} handleDelete={handleDelete} theme={post.theme} date={post.createdAt} />
                 <div className="deleteButtonWrapper">
-                    <button onClick={() => handleDelete(i)} className={editMode ? "hide" : "unhide"}>Delete</button>
+                    <div onClick={() => handleDelete(null, i)}>...</div>
+                    <button onClick={() => handleDelete(post._id, null)} className={editMode ? "unhide" : "hide"}>Delete</button>
                     <p>{post.isPrivate ? "Private" : "Public"}</p>
                 </div>
             </div>

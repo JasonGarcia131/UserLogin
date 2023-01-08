@@ -8,7 +8,7 @@ import { axiosPrivate } from "../api/axios";
 import jwt_decode from "jwt-decode";
 import Paginate from "../components/Paginate";
 
-const LIMIT = 5;
+const LIMIT = 0;
 function Profile() {
 
     const [theme, setTheme] = useState("light");
@@ -103,7 +103,7 @@ function Profile() {
         <div>
             <Banner theme={theme} setTheme={setTheme} />
             <UserCard theme={theme} user={user} numberOfPosts={paginatedPosts?.length} />
-            <MainCard theme={theme} user={user} posts={paginatedPosts} setPost={setPost} post={post} handleSubmit={handleSubmit} message={message} page={page} getPosts={getPosts} />
+            <MainCard theme={theme} user={user} paginatedPosts={paginatedPosts} setPaginatedPosts={setPaginatedPosts} setPost={setPost} post={post} handleSubmit={handleSubmit} message={message} page={page} getPosts={getPosts} />
         </div>
     )
 

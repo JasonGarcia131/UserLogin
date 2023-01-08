@@ -44,6 +44,7 @@ app.use('/posts', require('./routes/api/posts'));
 app.use(verifyJWT);
 app.use('/users', require('./routes/api/users'));
 
+
 app.all('*', (req, res) => {
     res.status(404);
     if (req.accepts('html')) {
