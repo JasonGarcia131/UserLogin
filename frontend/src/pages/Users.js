@@ -41,14 +41,14 @@ const Users = () => {
 
     return (
         <article>
-            <h2>Users List</h2>
+            {/* <h2>Users List</h2>
             {users?.length > 0 
                 ? (
                     <ul>
                         {users.map((user, i) => <li key={i}><Link to='/publicProfile'>{user}</Link></li>)}
                     </ul>
                 ) : <p>No users to display</p>
-            }
+            } */}
         </article>
     );
 };

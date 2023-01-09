@@ -1,6 +1,8 @@
 
 const paginate = (model) => {
     return async (req, res, next) => {
+
+        console.log("Req.query", req.query)
         const id = req.query.id
         const page = parseInt(req.query.page);
         const limit = parseInt(req.query.limit);
@@ -35,6 +37,7 @@ const paginate = (model) => {
         try {
                 results.results = await model.find({ author: id, theme: theme }).sort({createdAt: -1 }).limit(limit).skip(startIndex).populate('author').exec();
                 results.total = total
+                
                 res.paginatedResults = results
                 next();
 

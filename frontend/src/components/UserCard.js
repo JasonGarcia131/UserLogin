@@ -11,13 +11,7 @@ function UserCard(props) {
     const { theme, user, numberOfPosts } = props;
     const { username, profilePicture, bio } = user;
 
-    console.log("number od posts", numberOfPosts)
 
-
-    const getTotalFriends = (arrayOfFriends) => {
-        let totalFriends = 0;
-        return totalFriends = arrayOfFriends.length;
-    }
 
     return (
         <aside id="userCardWrapper" className={theme === "light" ? "lightUserCard" : "shadowUserCard"}>

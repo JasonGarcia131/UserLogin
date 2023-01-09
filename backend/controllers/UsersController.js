@@ -1,4 +1,5 @@
 const User = require('../model/User');
+const Post = require("../model/Post")
 
 const getAllUsers = async (req, res) => {
     const users = await User.find().select("-password");
@@ -23,7 +24,6 @@ const updateUser = async (req, res) => {
 }
 
 const deleteUser = async (req, res) => {
-    console.log("Req", req.body)
     if (!req?.body?.id) return res.status(400).json({ "message": 'User ID required' });
     const user = await User.findOne({ _id: req.body.id }).exec();
     if (!user) {
@@ -34,8 +34,9 @@ const deleteUser = async (req, res) => {
 }
 
 const getUser = async (req, res) => {
+    console.log("req.params", req.params);
     if (!req?.params?.id) return res.status(400).json({ "message": 'User ID required' });
-    const user = await User.findOne({ _id: req.params.id }).exec();
+    const user = await Post.find({ author: req.params.id }).populate("author").exec();
     if (!user) {
         return res.status(204).json({ 'message': `User ID ${req.params.id} not found` });
     }
