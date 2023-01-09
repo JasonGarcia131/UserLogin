@@ -10,10 +10,13 @@ router.route('/')
     .get(PostsController.getAllPosts)
     .post(PostsController.createPost)
     .put(verifyRoles(ROLES_LIST.Admin, ROLES_LIST.Editor), PostsController.updatePost)
-    .delete(verifyRoles(ROLES_LIST.Admin), PostsController.deletePost);
+    .delete(PostsController.deletePost);
+
+router.route('/:id')
+    .delete(PostsController.deletePost);
 
 router.route('/paginate')
-    .get(paginate(Post),PostsController.getUserPosts);
+    .get(paginate(Post), PostsController.getUserPosts);
 
 
 module.exports = router;

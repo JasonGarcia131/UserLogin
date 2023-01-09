@@ -12,20 +12,12 @@ function UserCard(props) {
     const { username, profilePicture, bio } = user;
 
     console.log("number od posts", numberOfPosts)
-    // const following = friends[0];
-    // const followers = friends[1];
+
 
     const getTotalFriends = (arrayOfFriends) => {
         let totalFriends = 0;
         return totalFriends = arrayOfFriends.length;
     }
-
-    // useEffect(() => {
-
-    //     setFollowersTotal(getTotalFriends(following));
-    //     setFollowingTotal(getTotalFriends(followers));
-
-    // }, [])
 
     return (
         <aside id="userCardWrapper" className={theme === "light" ? "lightUserCard" : "shadowUserCard"}>

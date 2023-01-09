@@ -12,3 +12,8 @@ export const handlePaginate = (buttonId, api, page) => {
     }
     
 }
+
+//infinite scroll pagination function
+export const handleInfiniteScroll = (api, page) => {
+    api(page.next?.page);
+}

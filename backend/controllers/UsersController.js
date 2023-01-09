@@ -23,6 +23,7 @@ const updateUser = async (req, res) => {
 }
 
 const deleteUser = async (req, res) => {
+    console.log("Req", req.body)
     if (!req?.body?.id) return res.status(400).json({ "message": 'User ID required' });
     const user = await User.findOne({ _id: req.body.id }).exec();
     if (!user) {

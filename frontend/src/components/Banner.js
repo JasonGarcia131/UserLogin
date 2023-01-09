@@ -4,12 +4,12 @@ import "../pages/profile.css"
 
 function Banner(props) {
 
-    const { setTheme, theme } = props;
+    const { theme, handleChangeTheme } = props;
 
     return (
         <header>
             <div id="banner" className={theme === "light" ? "lightBanner" : "shadowBanner"}>
-                <NavBar setTheme={setTheme} theme={theme} />
+                <NavBar theme={theme} handleChangeTheme={handleChangeTheme} />
             </div>
         </header>
     )
