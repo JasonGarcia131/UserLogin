@@ -6,13 +6,18 @@ const paginate = (model) => {
         const limit = parseInt(req.query.limit);
         const theme = req.query.theme;
 
-        const startIndex = (page - 1) + limit;
+        console.log("theme", theme);
+        console.log("page", page);
+        console.log("limit", limit);
+
+
+        const startIndex = (page - 1) * limit;
         const endIndex = page * limit;
 
         const results = {};
 
-        console.log("count documents", await model.countDocuments({ author: id, theme: theme }).exec())
-        const total = await model.countDocuments({ author: id, theme: theme }).exec();
+        // console.log("count documents", await model.countDocuments({ author: id, theme: theme }).populate('author').exec())
+        const total = await model.countDocuments({ author: id, theme: theme }).populate('author').exec();
 
         if (endIndex < total) {
             results.next = {
@@ -28,23 +33,16 @@ const paginate = (model) => {
             }
         }
         try {
-            if (total < limit) {
-                results.results = await model.find({ author: id, theme: theme }).select("-roles").limit(total).sort({ createdAt: -1 }).populate('author').exec();
+                results.results = await model.find({ author: id, theme: theme }).sort({createdAt: -1 }).limit(limit).skip(startIndex).populate('author').exec();
                 results.total = total
                 res.paginatedResults = results
-            }
-            else {
-                results.results = await model.find({ author: id, theme: theme }).select("-roles").limit(limit).skip(startIndex).sort({ createdAt: -1 }).populate('author').exec();
-                results.total = total
-                res.paginatedResults = results
-            }
+                next();
 
         } catch (e) {
             res.status(500).json({ message: e.message })
         }
 
-        res.paginatedResults = results;
-        next();
+       
     }
 }
 

@@ -6,13 +6,35 @@ import { useEffect } from "react";
 import useAuth from "../hooks/useAuth";
 import { axiosPrivate } from "../api/axios";
 import jwt_decode from "jwt-decode";
-import Paginate from "../components/Paginate";
 
-const LIMIT = 0;
+const LIMIT = 10;
 function Profile() {
+
+    //Authenticated User
+    const { auth } = useAuth();
+
+    //User info decoded from the access token
+    const decode = auth.accessToken
+        ? jwt_decode(auth.accessToken)
+        : undefined
+
+    const user = decode?.UserInfo;
+    const id = user?.userId;
+
+
 
     const [theme, setTheme] = useState("light");
     const [paginatedPosts, setPaginatedPosts] = useState([]);
+
+    // State variable for a single post
+    const [post, setPost] = useState({
+        id: id,
+        postTheme: "",
+        content: "",
+        isPrivate: false
+    });
+
+    //State variable for the pagination results
     const [page, setPage] = useState({
         next: {
             page: 0,
@@ -22,56 +44,44 @@ function Profile() {
             page: 0,
             limit: 0
         },
-        current: 0
     });
+
+    //State variable for any error messages
     const [message, setMessage] = useState("");
-
-
-    const { auth } = useAuth();
-
-    const decode = auth.accessToken
-        ? jwt_decode(auth.accessToken)
-        : undefined
-
-    const user = decode?.UserInfo;
-    const id = user?.userId;
-
-    const [post, setPost] = useState({
-        id: id,
-        postTheme: theme,
-        content: "",
-        isPrivate: false
-    });
 
     useEffect(() => {
 
-        // setPaginatedPosts([]);
         getPosts(1);
-        
+
     }, [theme]);
 
-    console.log("posts", paginatedPosts)
+    const handleChangeTheme = (themeChosen) => {
+        setPaginatedPosts([]);
+        setTheme(themeChosen);
+        setPost((prevData)=>({...prevData, postTheme: themeChosen}))
+    }
 
     const getPosts = async (nextPage) => {
+        const controller = new AbortController();
+
         try {
 
-            const response = await axiosPrivate.get(`/posts/paginate/?id=${id}&page=${nextPage}&limit=${LIMIT}&theme=${theme}`);
+            const response = await axiosPrivate.get(`/posts/paginate/?id=${id}&page=${nextPage}&limit=${LIMIT}&theme=${theme}`, {
+                signal: controller.signal
+            });
+            controller.abort();
 
             setPage({
                 next: response?.data?.next,
                 previous: response?.data?.previous,
-                current: response?.data?.previous?.page + 1,
-                total: Math.ceil((response?.data?.total)/LIMIT)
-
+                total: response?.data?.total
             })
-            
-            setPaginatedPosts(response?.data?.results);
-            // setPaginatedPosts([...paginatedPosts, response.data.results])
+
+            setPaginatedPosts([...paginatedPosts, response?.data?.results]);
 
         } catch (e) {
 
-            console.log(e);
-
+            console.log("error", e);
         }
     }
 
@@ -85,25 +95,28 @@ function Profile() {
         try {
 
             const response = await axiosPrivate.post(`/posts`, post);
-            window.location.reload();
-            // const newPost = response?.data;
-            // setPosts((prevData)=>[...prevData, newPost]);
-
+            console.log("response", response.data);
+            setPaginatedPosts([...paginatedPosts, response.data]);
+            setPage((prevData) => ({ ...prevData, total: page.total + 1 }));
+            setPost({
+                id: id,
+                postTheme: theme,
+                content: "",
+                isPrivate: false
+            })
             setMessage("Entry recored");
 
         } catch (e) {
-
-            setMessage(e);
-
+            console.log("error", e);
         }
 
     }
 
     return (
         <div>
-            <Banner theme={theme} setTheme={setTheme} />
-            <UserCard theme={theme} user={user} numberOfPosts={paginatedPosts?.length} />
-            <MainCard theme={theme} user={user} paginatedPosts={paginatedPosts} setPaginatedPosts={setPaginatedPosts} setPost={setPost} post={post} handleSubmit={handleSubmit} message={message} page={page} getPosts={getPosts} />
+            <Banner theme={theme} setTheme={setTheme} handleChangeTheme={handleChangeTheme} />
+            <UserCard theme={theme} user={user} numberOfPosts={page.total} />
+            <MainCard theme={theme} user={user} paginatedPosts={paginatedPosts.flat()} setPaginatedPosts={setPaginatedPosts} setPost={setPost} post={post} handleSubmit={handleSubmit} message={message} page={page} getPosts={getPosts} />
         </div>
     )
 

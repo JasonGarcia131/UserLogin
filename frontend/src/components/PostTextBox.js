@@ -7,8 +7,6 @@ function PostTextBox(props) {
 
     const { setPost, handleSubmit, post } = props;
 
-    console.log("post", post)
-
     useEffect(() => { }, [post])
 
     return (

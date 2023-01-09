@@ -12,6 +12,7 @@ import RequireAuth from './components/RequireAuth';
 import PersistLogin from './components/PersistLogin';
 import Profile from './pages/Profile';
 import { Routes, Route } from 'react-router-dom';
+import Users from './pages/Users';
 
 const ROLES = {
   'User': 2001,
@@ -37,7 +38,7 @@ function App() {
           </Route>
 
           <Route element={<RequireAuth allowedRoles={[ROLES.User]} />}>
-            <Route path="/profile" element={<Profile />} />
+            <Route path="profile" element={<Profile />} />
           </Route>
 
 
@@ -45,6 +46,9 @@ function App() {
             <Route path="editor" element={<Editor />} />
           </Route>
 
+          <Route element={<RequireAuth allowedRoles={[ROLES.User]} />}>
+            <Route path="users" element={<Users />} />
+          </Route>
 
           <Route element={<RequireAuth allowedRoles={[ROLES.Admin]} />}>
             <Route path="admin" element={<Admin />} />
