@@ -53,9 +53,9 @@ const updatePost = async (req, res) => {
 }
 
 const deletePost = async (req, res) => {
-    if (!req?.body?.id) return res.status(400).json({ 'message': 'Post ID required.' });
+    if (!req?.params?.id) return res.status(400).json({ 'message': 'Post ID required.' });
 
-    const post = await Post.findOne({ _id: req.body.id }).exec();
+    const post = await Post.findOne({ _id: req.params.id }).exec();
     if (!post) {
         return res.status(204).json({ "message": `No post matches ID ${req.body.id}.` });
     }

@@ -20,6 +20,10 @@ body {
    
 } */
 
+li{
+    color: black
+}
+
 section {
     width: 100%;
     max-width: 420px;
@@ -41,7 +45,7 @@ form {
 
 a,
 a:visited {
-    color: #fff;
+    /* color: #fff; */
 }
 
 input[type="text"],
