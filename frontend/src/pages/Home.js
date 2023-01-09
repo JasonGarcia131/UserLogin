@@ -14,9 +14,9 @@ const Home = () => {
         <section>
             <h1>Home</h1>
             <br />
-            <p>You are logged in!</p>
             <Link to='/profile'>Profile</Link>
             <br />
+            <a href="#">New upcoming features</a>
             <div className="flexGrow">
                 <button onClick={signOut}>Sign Out</button>
             </div>
