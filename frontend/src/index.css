@@ -13,12 +13,20 @@ html {
 
 body {
     width: 100%;
+    background-image: url("https://img.freepik.com/free-vector/realistic-galaxy-background_52683-12122.jpg?w=2000");
+    background-size: cover;
+    background-repeat: no-repeat;
     /* min-height: 100vh; */
 }
 
-/* .App {
-   
-} */
+.App {
+    width: 100%;
+    height: 100vh;
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+}
 
 li{
     color: black
@@ -28,10 +36,12 @@ section {
     width: 100%;
     max-width: 420px;
     min-height: 400px;
+    text-align: center;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     padding: 1rem;
+    color: white;
     /* background-color: rgba(41, 91, 20, 0.6); */
 }
 
@@ -45,7 +55,7 @@ form {
 
 a,
 a:visited {
-    /* color: #fff; */
+    color: #fff;
 }
 
 input[type="text"],
@@ -122,4 +132,8 @@ button {
     display: flex;
     justify-content: flex-start;
     align-items: flex-end;
+}
+
+.persistCheck{
+    margin: 20px;
 }

@@ -113,7 +113,7 @@ function Profile() {
     }
 
     return (
-        <div>
+        <div className="profileWrapper">
             <Banner theme={theme} setTheme={setTheme} handleChangeTheme={handleChangeTheme} />
             <UserCard theme={theme} user={user} numberOfPosts={page.total} />
             <MainCard theme={theme} user={user} paginatedPosts={paginatedPosts.flat()} setPaginatedPosts={setPaginatedPosts} setPost={setPost} post={post} handleSubmit={handleSubmit} message={message} page={page} getPosts={getPosts} />

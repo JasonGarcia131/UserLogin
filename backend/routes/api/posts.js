@@ -8,12 +8,12 @@ const Post = require("../../model/Post");
 
 router.route('/')
     .get(PostsController.getAllPosts)
-    .post(PostsController.createPost)
-    .put(verifyRoles(ROLES_LIST.Admin, ROLES_LIST.Editor), PostsController.updatePost)
-    .delete(PostsController.deletePost);
+    .post(verifyRoles(ROLES_LIST.User), PostsController.createPost)
+    .put(verifyRoles(ROLES_LIST.User), PostsController.updatePost)
+    .delete(verifyRoles(ROLES_LIST.User), PostsController.deletePost);
 
 router.route('/:id')
-    .delete(PostsController.deletePost);
+    .delete(verifyRoles(ROLES_LIST.User), PostsController.deletePost);
 
 router.route('/paginate')
     .get(paginate(Post), PostsController.getUserPosts);
