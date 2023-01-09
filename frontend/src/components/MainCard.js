@@ -51,7 +51,7 @@ function MainCard(props) {
     // })
 
     return (
-        <section className="postWrapper">
+        <section id="postWrapper" className={theme === "light" ? "postWrapperLight" : "postWrapperShadow"}>
             {theme === "light" ? <h2>Affirmations</h2> : <h2>Shadow Thoughts</h2>}
             {/* <div className={!editMode ? "hide" : "unhide"} onClick={()=>setEditMode(!editMode)}>Delete Entries</div> */}
             <PostTextBox theme={theme} id={id} setPost={setPost} post={post} handleSubmit={handleSubmit} />
