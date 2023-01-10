@@ -11,7 +11,6 @@ const getAllPosts = async (req, res) => {
 
 const getUserPosts = async (req, res) => {
     const paginatedResults = res.paginatedResults;
-    console.log("pag res", paginatedResults)
     res.json(paginatedResults);
 }
 
@@ -25,10 +24,10 @@ const createPost = async (req, res) => {
     try {
 
         const result = await Post.create({
-            author: req.body.id,
-            content: req.body.content,
-            theme: req?.body?.postTheme,
-            isPrivate: req?.body?.isPrivate
+            author: id,
+            content: content,
+            theme: postTheme,
+            isPrivate: isPrivate
         });
 
         res.status(201).json(result);

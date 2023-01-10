@@ -16,18 +16,18 @@ function MainCard(props) {
 
     const { id } = user;
 
-    const handleDelete = async (id) => {        
+    const handleDelete = async (id) => {
 
         //Toggles delete button to hide or show
         if (!id) return setEditMode(!editMode);
 
-        try{
+        try {
 
             const response = await axios.delete(`/posts/${id}`);
-            const filteredPost = paginatedPosts.flat().filter(post=>post._id != response.data._id);
+            const filteredPost = paginatedPosts.flat().filter(post => post._id != response.data._id);
             setPaginatedPosts(filteredPost);
 
-        }catch(e){
+        } catch (e) {
 
             console.log("error", e);
 
@@ -50,8 +50,14 @@ function MainCard(props) {
     //     )
     // })
 
+    useEffect(()=>{
+        getPosts(1);
+    },[theme])
+
+    // const reversedArray = paginatedPosts.flat().reverse();
+
     return (
-        <section className="postWrapper">
+        <section id="postWrapper" className={theme === "light" ? "postWrapperLight" : "postWrapperShadow"}>
             {theme === "light" ? <h2>Affirmations</h2> : <h2>Shadow Thoughts</h2>}
             <div className={!editMode ? "hide" : "unhide"} onClick={()=>setEditMode(!editMode)}>Delete Entries</div>
             <PostTextBox theme={theme} id={id} setPost={setPost} post={post} handleSubmit={handleSubmit} />
@@ -60,7 +66,7 @@ function MainCard(props) {
             <InfiniteScroll
                 // height={"100%"}
                 dataLength={paginatedPosts.length}
-                next={()=>handleInfiniteScroll(getPosts, page)}
+                next={() => handleInfiniteScroll(getPosts, page)}
                 // inverse={false} //
                 hasMore={page.next}
                 loader={<h4>Loading...</h4>}
@@ -71,13 +77,13 @@ function MainCard(props) {
                     <div key={index}>
                         <Post username={user.username} profilePicture={user.profilePicture} content={post.content} handleDelete={handleDelete} theme={post.theme} date={post.createdAt} />
                         <div className="deleteButtonWrapper">
-                     <div onClick={() => handleDelete()}>...</div>
-                     <button onClick={() => handleDelete(post._id)} className={editMode ? "unhide" : "hide"}>Delete</button>
-                     <p>{post.isPrivate ? "Private" : "Public"}</p>
-                 </div>
+                            <div onClick={() => handleDelete()}>...</div>
+                            <button onClick={() => handleDelete(post._id)} className={editMode ? "unhide" : "hide"}>Delete</button>
+                            <p>{post.isPrivate ? "Private" : "Public"}</p>
+                        </div>
                     </div>
                 ))}
-                  
+
             </InfiniteScroll>
             {/* {mappedPost} */}
         </section>
