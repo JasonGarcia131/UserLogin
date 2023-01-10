@@ -19,6 +19,8 @@ function Profile() {
         : undefined
 
     const user = decode?.UserInfo;
+
+    console.log("user", user)
     const id = user?.userId;
 
 
@@ -29,7 +31,7 @@ function Profile() {
     // State variable for a single post
     const [post, setPost] = useState({
         id: id,
-        postTheme: "",
+        postTheme: theme,
         content: "",
         isPrivate: false
     });
@@ -53,29 +55,30 @@ function Profile() {
 
         getPosts(1);
 
-    }, [theme]);
+    }, []);
 
     const handleChangeTheme = (themeChosen) => {
         setPaginatedPosts([]);
         setTheme(themeChosen);
-        setPost((prevData)=>({...prevData, postTheme: themeChosen}))
+        setPost((prevData)=>({...prevData, postTheme: themeChosen}));
     }
 
+    // user.roles, try to send roles in the body
     const getPosts = async (nextPage) => {
         const controller = new AbortController();
-
         try {
 
             const response = await axiosPrivate.get(`/posts/paginate/?id=${id}&page=${nextPage}&limit=${LIMIT}&theme=${theme}`, {
                 signal: controller.signal
             });
+
             controller.abort();
 
             setPage({
                 next: response?.data?.next,
                 previous: response?.data?.previous,
                 total: response?.data?.total
-            })
+            });
 
             setPaginatedPosts([...paginatedPosts, response?.data?.results]);
 
@@ -86,6 +89,7 @@ function Profile() {
     }
 
     const handleSubmit = async (e) => {
+
         e.preventDefault();
 
         if (post.content.length === 0) return setMessage("Oops... please try again.");
@@ -94,6 +98,7 @@ function Profile() {
 
         try {
 
+            console.log("post", post)
             const response = await axiosPrivate.post(`/posts`, post);
             console.log("response", response.data);
             setPaginatedPosts([...paginatedPosts, response.data]);
@@ -105,6 +110,8 @@ function Profile() {
                 isPrivate: false
             })
             setMessage("Entry recored");
+
+            window.location.reload();
 
         } catch (e) {
             console.log("error", e);

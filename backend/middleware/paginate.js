@@ -1,6 +1,7 @@
 
 const paginate = (model) => {
     return async (req, res, next) => {
+        console.log("req.body------", req.body)
         const id = req.query.id
         const page = parseInt(req.query.page);
         const limit = parseInt(req.query.limit);

@@ -8,7 +8,7 @@ const Post = require("../../model/Post");
 
 router.route('/')
     .get(PostsController.getAllPosts)
-    .post(verifyRoles(ROLES_LIST.User), PostsController.createPost)
+    .post( PostsController.createPost)
     .put(verifyRoles(ROLES_LIST.User), PostsController.updatePost)
     .delete(verifyRoles(ROLES_LIST.User), PostsController.deletePost);
 
