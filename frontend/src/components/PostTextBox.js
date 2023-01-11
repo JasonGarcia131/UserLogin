@@ -21,7 +21,7 @@ function PostTextBox(props) {
                 onChange={(e) => setPost((prevData) => ({ ...prevData, content: e.target.value }))}
             />
             <div className="textBoxControls">
-                <button onClick={handleSubmit}>Post</button>
+                <button onClick={handleSubmit}>Manifest</button>
                 <label htmlFor="isPrivate">Private</label>
                 <input
                     type="radio"

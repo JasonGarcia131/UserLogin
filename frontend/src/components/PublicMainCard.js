@@ -33,7 +33,7 @@ function PublicMainCard(props) {
     // })
 
     return (
-        <section className="postWrapper">
+        <section id="postWrapper" className={theme === "light" ? "postWrapperLight" : "postWrapperShadow"}>
             {theme === "light" ? <h2>Affirmations</h2> : <h2>Shadow Thoughts</h2>}
             {/* <Paginate page={page} getPosts={getPosts} /> */}
             <InfiniteScroll
@@ -49,9 +49,6 @@ function PublicMainCard(props) {
                 {paginatedPosts.flat().map((post, index) => (
                     <div key={index}>
                         <Post username={user.username} profilePicture={user.profilePicture} content={post.content}theme={post.theme} date={post.createdAt} />
-                        <div className="deleteButtonWrapper">
-                     <p>{post.isPrivate ? "Private" : "Public"}</p>
-                 </div>
                     </div>
                 ))}
                   

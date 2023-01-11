@@ -13,7 +13,6 @@ html {
 
 body {
     width: 100%;
-    background-image: url("https://www.pixelstalk.net/wp-content/uploads/2016/08/Free-Universe-Backgrounds.jpg");
     /* min-height: 100vh; */
 }
 
@@ -48,12 +47,33 @@ section {
     /* background-color: rgba(41, 91, 20, 0.6); */
 }
 
+ul,
+li {
+    color: white;
+    list-style: none;
+}
+
+
 form {
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
     flex-grow: 1;
     padding-bottom: 1rem;
+}
+
+#selectHoroscope {
+    width: 50%;
+    height: 30px;
+    background: black;
+    text-align: center;
+    color: white;
+    margin-top: 5%;
+    margin: 0 auto;
+}
+
+.sectionWrapper>a {
+    text-align: left;
 }
 
 a,
@@ -144,14 +164,26 @@ button {
 
 @media screen and (min-width: 600px) {
 
+    body {
+        background-image: url("https://www.pixelstalk.net/wp-content/uploads/2016/08/Free-Universe-Backgrounds.jpg");
+        background-size: cover;
+    }
+
     .App {
         width: 100%;
-        /* max-width: 420px; */
+        max-width: 420px;
+        background-image: none;
         margin: 0 auto;
         align-self: center;
     }
 
-   #userCardWrapper{
-    width: 30%;
-   }
+    .navBarWrapper{
+        width: 0%;
+    }
+
+    /* #userCardWrapper{
+    width: 100%;
+   } */
+
+
 }

@@ -11,12 +11,10 @@ function UserCard(props) {
     const { theme, user, numberOfPosts } = props;
     const { username, profilePicture, bio } = user;
 
-
-
     return (
         <aside id="userCardWrapper" className={theme === "light" ? "lightUserCard" : "shadowUserCard"}>
             <div className="profilePictureWrapper">
-                <img className="profilePicture" src={profilePicture} alt="husky" />
+                <img className="profilePicture" src={profilePicture} alt="avatar" />
             </div>
             <h1 className="userNameWrapper">
                 {username}

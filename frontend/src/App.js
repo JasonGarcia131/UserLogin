@@ -9,11 +9,9 @@ import RequireAuth from './components/RequireAuth';
 import PersistLogin from './components/PersistLogin';
 import Profile from './pages/Profile';
 import { Routes, Route } from 'react-router-dom';
-<<<<<<< HEAD
-import Users from './pages/Users';
 import PublicProfile from './pages/PublicProfile';
-=======
->>>>>>> da6323151d1d9c7ff7dd513defe3be4c4152f637
+import News from './pages/News';
+import Feedback from "./pages/Feedback"
 
 const ROLES = {
   'User': 2001
@@ -41,6 +39,14 @@ function App() {
 
           <Route element={<RequireAuth allowedRoles={[ROLES.User]} />}>
             <Route path="profile" element={<Profile />} />
+          </Route>
+
+          <Route element={<RequireAuth allowedRoles={[ROLES.User]} />}>
+            <Route path="news" element={<News />} />
+          </Route>
+
+          <Route element={<RequireAuth allowedRoles={[ROLES.User]} />}>
+            <Route path="feedback" element={<Feedback />} />
           </Route>
 
         </Route>

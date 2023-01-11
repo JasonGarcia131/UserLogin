@@ -19,9 +19,10 @@ function Profile() {
         : undefined
 
     const user = decode?.UserInfo;
-
-    console.log("user", user)
     const id = user?.userId;
+    const bannerImageLight = user?.bannerImageLight;
+    const bannerImageShadow = user?.bannerImageShadow;
+
 
 
 
@@ -51,19 +52,20 @@ function Profile() {
     //State variable for any error messages
     const [message, setMessage] = useState("");
 
+    //Fetch posts on page load.
     useEffect(() => {
 
         getPosts(1);
 
     }, []);
 
+    //Changes the theme of the page.
     const handleChangeTheme = (themeChosen) => {
         setPaginatedPosts([]);
         setTheme(themeChosen);
         setPost((prevData)=>({...prevData, postTheme: themeChosen}));
     }
 
-    // user.roles, try to send roles in the body
     const getPosts = async (nextPage) => {
         const controller = new AbortController();
         try {
@@ -88,6 +90,7 @@ function Profile() {
         }
     }
 
+
     const handleSubmit = async (e) => {
 
         e.preventDefault();
@@ -98,11 +101,13 @@ function Profile() {
 
         try {
 
-            console.log("post", post)
             const response = await axiosPrivate.post(`/posts`, post);
-            console.log("response", response.data);
+
+            //Sets the most recent post on the page.
             setPaginatedPosts([...paginatedPosts, response.data]);
             setPage((prevData) => ({ ...prevData, total: page.total + 1 }));
+
+            //Re-initialize state variables
             setPost({
                 id: id,
                 postTheme: theme,
@@ -121,7 +126,7 @@ function Profile() {
 
     return (
         <div className="profileWrapper">
-            <Banner theme={theme} setTheme={setTheme} handleChangeTheme={handleChangeTheme} />
+            <Banner theme={theme} setTheme={setTheme} handleChangeTheme={handleChangeTheme} bannerImageLight={bannerImageLight} bannerImageShadow={bannerImageShadow} />
             <UserCard theme={theme} user={user} numberOfPosts={page.total} />
             <MainCard theme={theme} user={user} paginatedPosts={paginatedPosts.flat()} setPaginatedPosts={setPaginatedPosts} setPost={setPost} post={post} handleSubmit={handleSubmit} message={message} page={page} getPosts={getPosts} />
         </div>

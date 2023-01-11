@@ -6,12 +6,14 @@ import useAuth from "../hooks/useAuth";
 import axios, { axiosPrivate } from "../api/axios";
 import jwt_decode from "jwt-decode";
 import PublicMainCard from "../components/PublicMainCard";
+import "./profile.css"
 
 const LIMIT = 10;
 function PublicProfile(props) {
 
     const [userId, setUserId] = useState(window.location.pathname.split("/")[2]);
     const [userInfo, setUserInfo] = useState({
+        id: userId,
         username: "",
         bio: "",
         profilePicture: ""
@@ -48,20 +50,50 @@ function PublicProfile(props) {
         // setPost((prevData)=>({...prevData, postTheme: themeChosen}))
     }
 
+    const getPosts = async (nextPage) => {
+        const controller = new AbortController();
+        try {
+
+            const response = await axiosPrivate.get(`/posts/paginate/?id=${userId}&page=${nextPage}&limit=${LIMIT}&theme=${theme}`, {
+                signal: controller.signal
+            });
+
+            controller.abort();
+
+            setPage({
+                next: response?.data?.next,
+                previous: response?.data?.previous,
+                total: response?.data?.total
+            });
+
+            setPaginatedPosts([...paginatedPosts, response?.data?.results]);
+
+        } catch (e) {
+
+            console.log("error", e);
+        }
+    }
+
     const getUser = async () => {
+        const controller = new AbortController();
 
         try {
-            const response = await axios.get(`/users/${userId}`);
-            console.log('response', response)
+            const response = await axios.get(`/users/${userId}`,{
+                signal: controller.signal
+            });
+
+            console.log('response in pubic', response.data)
 
             setUserInfo({
-                id: response.data[0].author._id,
-                username: response.data[0].author.username,
-                bio: response.data[0].author.bio,
-                profilePicture: response.data[0].author.profilePicture
+                id: response?.data?._id,
+                username: response?.data?.username,
+                bio: response?.data?.bio,
+                profilePicture: response?.data?.profilePicture
             })
 
-            setPaginatedPosts([...paginatedPosts, response.data])
+            setPaginatedPosts([...paginatedPosts, response.data]);
+            controller.abort();
+
             // await getPosts(1);
 
 
@@ -71,38 +103,13 @@ function PublicProfile(props) {
         }
     }
 
-    console.log("user info", userInfo)
-
-    const getPosts = async (nextPage) => {
-        // const controller = new AbortController();
-
-        // try {
-
-        //     const response = await axios.get(`/posts/paginate/?id=${userInfo.id}&page=${nextPage}&limit=${LIMIT}&theme=${theme}`, {
-        //         signal: controller.signal
-        //     });
-        //     controller.abort();
-
-        //     console.log("response posts", response)
-        //     setPage({
-        //         next: response?.data?.next,
-        //         previous: response?.data?.previous,
-        //         total: response?.data?.total
-        //     })
-
-        //     setPaginatedPosts([...paginatedPosts, response?.data?.results]);
-
-        // } catch (e) {
-
-        //     console.log("error", e);
-        // }
-    }
+    console.log("user info", userInfo);
 
     return (
-        <div>
+        <div className="profileWrapper">
             <Banner theme={theme} setTheme={setTheme} handleChangeTheme={handleChangeTheme} />
             <UserCard theme={theme} user={userInfo} numberOfPosts={page.total} />
-            <PublicMainCard theme={theme} user={userInfo} paginatedPosts={paginatedPosts.flat()} setPaginatedPosts={setPaginatedPosts} page={page} getPosts={getPosts} />
+            <PublicMainCard theme={theme} user={userInfo} paginatedPosts={paginatedPosts.flat()} setPaginatedPosts={setPaginatedPosts} page={page}  getPosts={getPosts}/>
         </div>
     )
 

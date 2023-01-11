@@ -1,6 +1,7 @@
 import { useRef, useState, useEffect } from "react";
 import axios from '../api/axios';
 import { Link } from "react-router-dom";
+import Select from "../components/Select";
 
 const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
@@ -24,6 +25,10 @@ const Register = () => {
 
     const [errMsg, setErrMsg] = useState('');
     const [success, setSuccess] = useState(false);
+
+    const [horoscopeSign, setHoroscopeSign] = useState("");
+
+    console.log("horoscope selected", horoscopeSign)
 
     useEffect(() => {
         userRef.current.focus();
@@ -53,7 +58,7 @@ const Register = () => {
         }
         try {
             const response = await axios.post(REGISTER_URL,
-                JSON.stringify({ user, pwd }),
+                JSON.stringify({ user, pwd, horoscopeSign }),
                 {
                     headers: { 'Content-Type': 'application/json' },
                     withCredentials: true
@@ -160,6 +165,9 @@ const Register = () => {
                         <p id="confirmnote" className={matchFocus && !validMatch ? "instructions" : "offscreen"}>
                             Must match the first password input field.
                         </p>
+
+                        <label htmlFor="horoscopeSign">Horoscope:</label>
+                        <Select value={horoscopeSign} setHoroscopeSign={setHoroscopeSign} />
 
                         <button disabled={!validName || !validPwd || !validMatch ? true : false}>Sign Up</button>
                     </form>
