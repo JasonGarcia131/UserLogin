@@ -1,28 +1,18 @@
+const mongoose = require("mongoose");
+const objectId =  mongoose.Types.ObjectId;
 
 const paginate = (model) => {
     return async (req, res, next) => {
-<<<<<<< HEAD
-
-        console.log("Req.query", req.query)
-=======
-        console.log("req.body------", req.body)
->>>>>>> da6323151d1d9c7ff7dd513defe3be4c4152f637
         const id = req.query.id
         const page = parseInt(req.query.page);
         const limit = parseInt(req.query.limit);
         const theme = req.query.theme;
-
-        console.log("theme", theme);
-        console.log("page", page);
-        console.log("limit", limit);
-
 
         const startIndex = (page - 1) * limit;
         const endIndex = page * limit;
 
         const results = {};
 
-        // console.log("count documents", await model.countDocuments({ author: id, theme: theme }).populate('author').exec())
         const total = await model.countDocuments({ author: id, theme: theme }).populate('author').exec();
 
         if (endIndex < total) {

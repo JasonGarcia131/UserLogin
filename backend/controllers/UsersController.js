@@ -1,5 +1,7 @@
 const User = require('../model/User');
-const Post = require("../model/Post")
+const Post = require("../model/Post");
+const mongoose = require("mongoose");
+const objectId =  mongoose.Types.ObjectId;
 
 const getAllUsers = async (req, res) => {
     const users = await User.find().select("-password");
@@ -34,9 +36,11 @@ const deleteUser = async (req, res) => {
 }
 
 const getUser = async (req, res) => {
-    console.log("req.params", req.params);
+    const id = objectId(req.params.id);
+    console.log("req.params id", id);
     if (!req?.params?.id) return res.status(400).json({ "message": 'User ID required' });
-    const user = await Post.find({ author: req.params.id }).populate("author").exec();
+    const user = await User.findOne({_id: id}).select("-password").select("-roles").exec();
+    console.log("user", user)
     if (!user) {
         return res.status(204).json({ 'message': `User ID ${req.params.id} not found` });
     }
