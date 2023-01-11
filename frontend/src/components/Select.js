@@ -14,6 +14,7 @@ function Select(props) {
     //sets the options.
     return (
         <select id="selectHoroscope" value={value} onChange={(e) => setHoroscopeSign(e.target.value)}>
+            <option>Choose your sign</option>
             {mappedOptions}
         </select>
     )

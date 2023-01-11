@@ -12,6 +12,7 @@ import { Routes, Route } from 'react-router-dom';
 import PublicProfile from './pages/PublicProfile';
 import News from './pages/News';
 import Feedback from "./pages/Feedback"
+import About from "./pages/About"
 
 const ROLES = {
   'User': 2001
@@ -28,6 +29,7 @@ function App() {
         <Route path="linkpage" element={<LinkPage />} />
         <Route path="unauthorized" element={<Unauthorized />} />
         <Route path="users/:id" element={<PublicProfile />} />
+        <Route path="/about" element={<About/>} />
 
 
         {/* we want to protect these routes */}

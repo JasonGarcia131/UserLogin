@@ -33,7 +33,7 @@ const Feedback = () => {
 
 
     return (
-        <section id="feedbackWrapper">
+        <section class="sectionWrapper">
             <Link to="/">Home</Link>
             <h1>Feedback</h1>
             <input

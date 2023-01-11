@@ -32,7 +32,7 @@
 
 .submit-btn:active{  
   background-color: rgb(187, 127, 243);
-  /* animation: name duration timing-function delay iteration-count direction fill-mode; */
+  animation: name duration timing-function delay iteration-count direction fill-mode;
 }
 
 
