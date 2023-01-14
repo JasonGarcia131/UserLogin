@@ -18,16 +18,20 @@ function Profile() {
         ? jwt_decode(auth.accessToken)
         : undefined
 
+    // Getting user info for http requests.
     const user = decode?.UserInfo;
     const id = user?.userId;
-    const bannerImageLight = user?.bannerImageLight;
-    const bannerImageShadow = user?.bannerImageShadow;
-
-
-
 
     const [theme, setTheme] = useState("light");
     const [paginatedPosts, setPaginatedPosts] = useState([]);
+    const [userInfo, setUserInfo] = useState({
+        id: 0,
+        username: "",
+        profilePicture: "",
+        bio: "",
+        bannerImageLight: "",
+        bannerImageShadow: ""
+    });
 
     // State variable for a single post
     const [post, setPost] = useState({
@@ -54,9 +58,8 @@ function Profile() {
 
     //Fetch posts on page load.
     useEffect(() => {
-
+        getUser();
         getPosts(1);
-
     }, []);
 
     //Changes the theme of the page.
@@ -65,6 +68,34 @@ function Profile() {
         setTheme(themeChosen);
         setPost((prevData)=>({...prevData, postTheme: themeChosen}));
     }
+
+    const getUser = async () => {
+        const controller = new AbortController();
+        try {
+
+            const response = await axiosPrivate.get(`/users/${id}`,{
+                signal: controller.signal
+            });
+
+            controller.abort();
+
+            setUserInfo({
+                id: response?.data?._id,
+                username: response?.data?.username,
+                profilePicture: response?.data?.profilePicture,
+                bio: response?.data?.bio,
+                bannerImageLight: response?.data?.bannerImageLight,
+                bannerImageShadow: response?.data?.bannerImageShadow
+            });
+
+        } catch (e) {
+
+            console.log("error", e);
+        }
+        
+    }
+
+    console.log("userinfo on load", userInfo);
 
     const getPosts = async (nextPage) => {
         const controller = new AbortController();
@@ -123,12 +154,13 @@ function Profile() {
         }
 
     }
+    
 
     return (
         <div className="profileWrapper">
-            <Banner theme={theme} setTheme={setTheme} handleChangeTheme={handleChangeTheme} bannerImageLight={bannerImageLight} bannerImageShadow={bannerImageShadow} />
-            <UserCard theme={theme} user={user} numberOfPosts={page.total} />
-            <MainCard theme={theme} user={user} paginatedPosts={paginatedPosts.flat()} setPaginatedPosts={setPaginatedPosts} setPost={setPost} post={post} handleSubmit={handleSubmit} message={message} page={page} getPosts={getPosts} />
+            <Banner theme={theme} setTheme={setTheme} handleChangeTheme={handleChangeTheme} userInfo={userInfo}/>
+            <UserCard theme={theme} userInfo={userInfo} numberOfPosts={page.total} />
+            <MainCard theme={theme} userInfo={userInfo} paginatedPosts={paginatedPosts.flat()} setPaginatedPosts={setPaginatedPosts} setPost={setPost} post={post} handleSubmit={handleSubmit} message={message} page={page} getPosts={getPosts} />
         </div>
     )
 

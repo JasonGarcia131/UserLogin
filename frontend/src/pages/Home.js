@@ -4,7 +4,9 @@ import useAuth from "../hooks/useAuth";
 import jwt_decode from "jwt-decode";
 import {CopyToClipboard} from "react-copy-to-clipboard";
 import { useState } from "react";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+// import { faPaperClip } from '@fortawesome/free-regular-svg-icons'
+// <FontAwesomeIcon icon="fa-solid fa-paperclip" />
 
 const Home = () => {
     const navigate = useNavigate();

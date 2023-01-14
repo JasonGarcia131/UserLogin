@@ -12,9 +12,9 @@ function MainCard(props) {
 
     const [editMode, setEditMode] = useState(false);
 
-    const { theme, user, paginatedPosts, setPost, post, message, page, getPosts, setPaginatedPosts, handleSubmit } = props;
+    const { theme, userInfo, paginatedPosts, setPost, post, message, page, getPosts, setPaginatedPosts, handleSubmit } = props;
 
-    const { id } = user;
+    const { id, username, profilePicture } = userInfo;
 
     const handleDelete = async (id) => {
 
@@ -75,7 +75,7 @@ function MainCard(props) {
             >
                 {paginatedPosts.flat().map((post, index) => (
                     <div key={index}>
-                        <Post username={user.username} profilePicture={user.profilePicture} content={post.content} handleDelete={handleDelete} theme={post.theme} date={post.createdAt} />
+                        <Post username={username} profilePicture={profilePicture} content={post.content} handleDelete={handleDelete} theme={post.theme} date={post.createdAt} />
                         <div className="deleteButtonWrapper">
                             <div onClick={() => handleDelete()}>...</div>
                             <button onClick={() => handleDelete(post._id)} className={editMode ? "unhide" : "hide"}>Delete</button>

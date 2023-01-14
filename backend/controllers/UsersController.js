@@ -11,6 +11,8 @@ const getAllUsers = async (req, res) => {
 
 const updateUser = async (req, res) => {
     const id = req.params.id;
+    const {theme, image} = req.body;
+    console.log('body', req.body)
 
     if (!id) {
         return res.status(400).json({ 'message': 'ID parameter is required.' });
@@ -21,7 +23,10 @@ const updateUser = async (req, res) => {
         return res.status(204).json({ "message": `No user matches ID ${req.body.id}.` });
     }
 
-    const result = await User.save();
+    if (theme==="light") user.bannerImageLight = image;
+    if (theme==="shadow") user.bannerImageShadow = image;
+
+    const result = await user.save();
     res.json({"messgae":"user updated"});
 }
 

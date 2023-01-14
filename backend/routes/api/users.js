@@ -11,6 +11,6 @@ router.route('/')
 
 router.route('/:id')
     .get(usersController.getUser)
-    .put(verifyRoles(ROLES_LIST.User), usersController.updateUser)
+    .put(usersController.updateUser)
 
 module.exports = router;
