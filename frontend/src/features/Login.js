@@ -1,7 +1,7 @@
 import { useRef, useState, useEffect } from 'react';
-import useAuth from '../hooks/useAuth';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import jwt_decode from 'jwt-decode';
+import useAuth from '../hooks/useAuth';
+
 
 import axios from '../api/axios';
 const LOGIN_URL = '/auth';
@@ -41,7 +41,7 @@ const Login = () => {
             );
             const accessToken = response?.data?.accessToken;
 
-            setAuth({accessToken });
+            setAuth({accessToken});
             setUser('');
             setPwd('');
             navigate(from, { replace: true });

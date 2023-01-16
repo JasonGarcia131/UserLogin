@@ -4,16 +4,15 @@ const PostsController = require('../../controllers/PostsController');
 const ROLES_LIST = require('../../config/roles_list');
 const verifyRoles = require('../../middleware/verifyRoles');
 const paginate = require("../../middleware/paginate");
+const verifyJWT = require("../../middleware/verifyJWT");
 const Post = require("../../model/Post");
 
 router.route('/')
     .get(PostsController.getAllPosts)
-    .post( PostsController.createPost)
-    .put(verifyRoles(ROLES_LIST.User), PostsController.updatePost)
-    .delete(verifyRoles(ROLES_LIST.User), PostsController.deletePost);
+    .post([verifyJWT, verifyRoles(ROLES_LIST.User)], PostsController.createPost)
 
 router.route('/:id')
-    .delete(verifyRoles(ROLES_LIST.User), PostsController.deletePost);
+    .delete([verifyJWT, verifyRoles(ROLES_LIST.User)], PostsController.deletePost);
 
 router.route('/paginate')
     .get(paginate(Post), PostsController.getUserPosts);

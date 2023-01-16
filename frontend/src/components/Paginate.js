@@ -1,5 +1,7 @@
 import { handlePaginate } from "./handlePaginate"
 
+
+//This is a pagination navigation
 const Paginate = ({ page, getPosts }) => {
 
     return (

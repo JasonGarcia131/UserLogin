@@ -33,7 +33,7 @@ const userSchema = new Schema({
     },
     bannerImageLight: {
         type: String,
-        default: "https://th.bing.com/th/id/R.60336657091d86bf4755f7c888e614ed?rik=TCWKLLCDubfk5g&riu=http%3a%2f%2fwww.pixelstalk.net%2fwp-content%2fuploads%2f2016%2f08%2fAndromeda-Galaxy-Milky-Way.jpg&ehk=plGXCabGQ7dAx6YArvO0TQgNmO5%2fwPr1PYQ3sXk9KTQ%3d&risl=1&pid=ImgRaw&r=0"
+        default: "https://www.pixelstalk.net/wp-content/uploads/2016/08/Free-Universe-Backgrounds.jpg"
     },
     bannerImageShadow: {
         type: String,

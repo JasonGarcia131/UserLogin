@@ -1,7 +1,8 @@
 import { useRef, useState, useEffect } from "react";
-import axios from '../api/axios';
 import { Link } from "react-router-dom";
 import Select from "../components/Select";
+import axios from '../api/axios';
+
 
 const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
@@ -27,8 +28,6 @@ const Register = () => {
     const [success, setSuccess] = useState(false);
 
     const [horoscopeSign, setHoroscopeSign] = useState("");
-
-    console.log("horoscope selected", horoscopeSign)
 
     useEffect(() => {
         userRef.current.focus();
@@ -90,7 +89,7 @@ const Register = () => {
                 <section>
                     <h1>Success!</h1>
                     <p>
-                        <a href="#">Sign In</a>
+                        <Link to="/login">Sign In</Link>
                     </p>
                 </section>
             ) : (
@@ -100,8 +99,6 @@ const Register = () => {
                     <form onSubmit={handleSubmit}>
                         <label htmlFor="username">
                             Username:
-                            {/* <FontAwesomeIcon icon={faCheck} className={validName ? "valid" : "hide"} />
-                            <FontAwesomeIcon icon={faTimes} className={validName || !user ? "hide" : "invalid"} /> */}
                         </label>
                         <input
                             type="text"
@@ -125,8 +122,6 @@ const Register = () => {
 
                         <label htmlFor="password">
                             Password:
-                            {/* <FontAwesomeIcon icon={faCheck} className={validPwd ? "valid" : "hide"} />
-                            <FontAwesomeIcon icon={faTimes} className={validPwd || !pwd ? "hide" : "invalid"} /> */}
                         </label>
                         <input
                             type="password"
@@ -144,12 +139,8 @@ const Register = () => {
                             Must include uppercase and lowercase letters, a number and a special character.<br />
                             Allowed special characters: <span aria-label="exclamation mark">!</span> <span aria-label="at symbol">@</span> <span aria-label="hashtag">#</span> <span aria-label="dollar sign">$</span> <span aria-label="percent">%</span>
                         </p>
-
-
                         <label htmlFor="confirm_pwd">
                             Confirm Password:
-                            {/* <FontAwesomeIcon icon={faCheck} className={validMatch && matchPwd ? "valid" : "hide"} />
-                            <FontAwesomeIcon icon={faTimes} className={validMatch || !matchPwd ? "hide" : "invalid"} /> */}
                         </label>
                         <input
                             type="password"

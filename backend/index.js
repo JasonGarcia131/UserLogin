@@ -22,10 +22,11 @@ app.use(credentials);
 app.use(cors(corsOptions));
 
 // built-in middleware to handle urlencoded form data
-app.use(express.urlencoded({ extended: false }));
+
+app.use(express.urlencoded({limit: '50mb', extended: true, parameterLimit: 50000}));
 
 // built-in middleware for json 
-app.use(express.json());
+app.use(express.json({limit: '50mb'}));
 
 //middleware for cookies
 app.use(cookieParser());
@@ -39,10 +40,10 @@ app.use('/register', require('./routes/register'));
 app.use('/auth', require('./routes/auth'));
 app.use('/refresh', require('./routes/refresh'));
 app.use('/logout', require('./routes/logout'));
-app.use('/posts', require('./routes/api/posts'));
 app.use('/feedback', require('./routes/feedback'));
+app.use('/posts', require('./routes/api/posts'));
 
-// app.use(verifyJWT);
+app.use(verifyJWT);
 app.use('/users', require('./routes/api/users'));
 
 

@@ -13,11 +13,11 @@ const Feedback = () => {
         console.log("clicked")
         e.preventDefault();
 
-        if(feedback.content.length < 0) return setMessage("Seems like your comment is blank.");
+        if (feedback.content.length < 0) return setMessage("Seems like your comment is blank.");
 
-        if(feedback.content.length > 100) return setMessage("Seems like your comment is too long.");
+        if (feedback.content.length > 100) return setMessage("Seems like your comment is too long.");
 
-        try{
+        try {
 
             const response = await axiosPrivate.post('/feedback', feedback);
 
@@ -25,7 +25,7 @@ const Feedback = () => {
                 content: ""
             });
 
-        }catch(e){
+        } catch (e) {
             setMessage("Something went wrong.")
         }
         setMessage("Thank you for your feedback.");
@@ -36,6 +36,7 @@ const Feedback = () => {
         <section class="sectionWrapper">
             <Link to="/">Home</Link>
             <h1>Feedback</h1>
+            <p>Your feedback can help improve the app's design to fit your needs.</p>
             <input
                 type="textbox"
                 className="postTextBoxWrapper"
@@ -43,7 +44,7 @@ const Feedback = () => {
                 maxLength={100}
                 name='feedback'
                 value={feedback.content}
-                onChange={(e) => setFeedback({content: e.target.value})}
+                onChange={(e) => setFeedback({ content: e.target.value })}
             />
             <p>{message}</p>
             <button onClick={handleSubmit}>Submit</button>

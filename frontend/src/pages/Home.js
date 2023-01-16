@@ -2,11 +2,9 @@ import { useNavigate, Link, useSearchParams } from "react-router-dom";
 import useLogout from "../hooks/useLogout";
 import useAuth from "../hooks/useAuth";
 import jwt_decode from "jwt-decode";
-import {CopyToClipboard} from "react-copy-to-clipboard";
+import { CopyToClipboard } from "react-copy-to-clipboard";
+import { FaPaperclip } from "react-icons/fa";
 import { useState } from "react";
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-// import { faPaperClip } from '@fortawesome/free-regular-svg-icons'
-// <FontAwesomeIcon icon="fa-solid fa-paperclip" />
 
 const Home = () => {
     const navigate = useNavigate();
@@ -19,20 +17,17 @@ const Home = () => {
         navigate('/linkpage');
     }
 
-      //Authenticated User
-      const { auth } = useAuth();
+    //Authenticated User
+    const { auth } = useAuth();
 
-      //User info decoded from the access token
-      const decode = auth.accessToken
-          ? jwt_decode(auth.accessToken)
-          : undefined
-  
-      const user = decode?.UserInfo;
-  
-      console.log("user", user)
-      const id = user?.userId;
+    //User info decoded from the access token
+    const decode = auth.accessToken
+        ? jwt_decode(auth.accessToken)
+        : undefined
 
-      // Make link to profile a copy link
+    const user = decode?.UserInfo;
+    const id = user?.userId;
+
     return (
         <section>
             <h1>Home</h1>
@@ -41,16 +36,19 @@ const Home = () => {
             <br />
             <Link to="/news">New upcoming features</Link>
             <br />
-            <Link to='/feedback'>Give feedback ?</Link>
+            <Link to='/feedback'>Give feedback?</Link>
             <br />
             <Link to='/about'>About Stars</Link>
-            <CopyToClipboard 
+            <br />
+            <CopyToClipboard
                 text={`localhost:3000/users/${id}`}
-                onCopy={()=>setCopied(true)}
+                onCopy={() => setCopied(true)}
             >
-               <button>Copy profile link</button> 
-                </CopyToClipboard>
-                {copied ? <p>Copied!</p> : ""}
+                <div>
+                    <p>Share profile link</p><FaPaperclip />
+                </div>
+            </CopyToClipboard>
+            {copied ? <p>Copied!</p> : ""}
             <div className="flexGrow">
                 <button onClick={signOut}>Sign Out</button>
             </div>

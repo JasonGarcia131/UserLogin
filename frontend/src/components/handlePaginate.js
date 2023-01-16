@@ -1,3 +1,5 @@
+
+//This can be used for pagination with pages.
 export const handlePaginate = (buttonId, api, page) => {
 
     switch(buttonId){
@@ -7,13 +9,10 @@ export const handlePaginate = (buttonId, api, page) => {
         case "next" : 
             api(page.next?.page);
             break;
-        default :         console.log(`clicked ${buttonId}`)
-
     }
-    
 }
 
-//infinite scroll pagination function
+//Infinite scroll pagination function
 export const handleInfiniteScroll = (api, page) => {
     api(page.next?.page);
 }
