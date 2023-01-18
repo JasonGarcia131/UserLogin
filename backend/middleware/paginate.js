@@ -7,6 +7,8 @@ const paginate = (model) => {
         const page = parseInt(req.query.page);
         const limit = parseInt(req.query.limit);
         const theme = req.query.theme;
+        const isPublic = req.query.public;
+        console.log("isPublic", isPublic);
 
         const startIndex = (page - 1) * limit;
         const endIndex = page * limit;
@@ -29,7 +31,9 @@ const paginate = (model) => {
             }
         }
         try {
-                results.results = await model.find({ author: id, theme: theme }).sort({createdAt: -1 }).limit(limit).skip(startIndex).populate('author').exec();
+               
+                if(isPublic === "true")  results.results = await model.find({ author: id, theme: theme, isPrivate: false }).sort({createdAt: -1 }).limit(limit).skip(startIndex).populate('author').exec();
+                if(isPublic === "false")  results.results = await model.find({ author: id, theme: theme }).sort({createdAt: -1 }).limit(limit).skip(startIndex).populate('author').exec();
                 results.total = total
                 
                 res.paginatedResults = results

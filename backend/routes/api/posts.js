@@ -17,5 +17,8 @@ router.route('/:id')
 router.route('/paginate')
     .get(paginate(Post), PostsController.getUserPosts);
 
+router.route('/paginate/public')
+    .get(paginate(Post), PostsController.getUserPosts);
+
 
 module.exports = router;
