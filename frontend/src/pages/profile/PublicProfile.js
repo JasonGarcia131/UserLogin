@@ -1,12 +1,10 @@
 import Banner from "./Banner";
-import UserCard from "./UserCard";
 import { useState } from "react";
 import { useEffect } from "react";
-import useAuth from "../../hooks/useAuth";
-import axios, { axiosPrivate } from "../../api/axios";
-import jwt_decode from "jwt-decode";
+import axios from "../../api/axios";
+import NavBar from "./NavBar";
+import PublicUserCard from "./PublicUserCard";
 import PublicMainCard from "./PublicMainCard";
-// import "./profile.css"
 
 const LIMIT = 10;
 function PublicProfile(props) {
@@ -54,7 +52,7 @@ function PublicProfile(props) {
         const controller = new AbortController();
         try {
 
-            const response = await axiosPrivate.get(`/posts/paginate/?id=${userId}&page=${nextPage}&limit=${LIMIT}&theme=${theme}`, {
+            const response = await axios.get(`/posts/paginate/public/?id=${userId}&page=${nextPage}&limit=${LIMIT}&theme=${theme}&public=true`, {
                 signal: controller.signal
             });
 
@@ -78,7 +76,7 @@ function PublicProfile(props) {
         const controller = new AbortController();
 
         try {
-            const response = await axios.get(`/users/${userId}`,{
+            const response = await axios.get(`/users/${userId}`, {
                 signal: controller.signal
             });
 
@@ -107,9 +105,10 @@ function PublicProfile(props) {
 
     return (
         <div id="profileWrapper">
-            <Banner theme={theme} setTheme={setTheme} handleChangeTheme={handleChangeTheme} />
-            <UserCard theme={theme} user={userInfo} numberOfPosts={page.total} />
-            <PublicMainCard theme={theme} user={userInfo} paginatedPosts={paginatedPosts.flat()} setPaginatedPosts={setPaginatedPosts} page={page}  getPosts={getPosts}/>
+            <NavBar theme={theme} handleChangeTheme={handleChangeTheme} />
+            <Banner userInfo={userInfo} theme={theme} setTheme={setTheme} handleChangeTheme={handleChangeTheme} />
+            <PublicUserCard theme={theme} userInfo={userInfo} numberOfPosts={page.total} />
+            <PublicMainCard theme={theme} user={userInfo} paginatedPosts={paginatedPosts.flat()} setPaginatedPosts={setPaginatedPosts} page={page} getPosts={getPosts} />
         </div>
     )
 

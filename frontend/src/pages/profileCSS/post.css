@@ -47,7 +47,7 @@
     background-color: rgba(255, 255, 255, 0.7);
 }
 
-.lightPostCard > p{
+.lightPostCard>p {
     font-weight: 800;
 }
 
@@ -71,5 +71,9 @@
 }
 
 @media screen and (min-width: 500px) {
-    
+
+    #postProfilePicture {
+        height: 80%;
+        max-height: 100px;
+    }
 }

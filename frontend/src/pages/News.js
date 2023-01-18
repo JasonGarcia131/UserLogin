@@ -11,10 +11,6 @@ const News = () => {
             <p>Search friends by horoscope sign.</p>
             <br/>
             <p>Private Messaging.</p>
-                    
-            
-                    
-            
         </section>
     )
 }

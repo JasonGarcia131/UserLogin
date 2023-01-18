@@ -7,6 +7,7 @@ function UserCard(props) {
     const axiosPrivate = useAxiosPrivate();
 
     const [uploadBtn, setUploadBtn] = useState(false);
+    const [loading, setLoading] = useState(false);
     const [message, setMessage] = useState("");
     const [totalPosts, setTotalPosts] = useState(0);
     const [newProfilePicture, setNewProfilePicture] = useState({
@@ -22,13 +23,16 @@ function UserCard(props) {
 
     const handleProfileImage = async (e) => {
         e.preventDefault();
-        setUploadBtn(true);
+        setLoading(true);
         const file = e.target.files[0];
 
         if (file && file.type.substring(0, 5) === 'image') {
+
             const reader = new FileReader();
             reader.readAsDataURL(file);
             reader.onloadend = () => {
+                setLoading(false);
+                setUploadBtn(true);
                 console.log("reader.results", reader.result)
                 setNewProfilePicture({ profilePicture: reader.result });
             }
@@ -55,21 +59,33 @@ function UserCard(props) {
         }
     }
 
+    //edit profile input only works when hovered over specific area.
     return (
         <aside id="userCardWrapper" className={theme === "light" ? "lightUserCard" : "shadowUserCard"}>
             <div id="userCardProfilePictureWrapper" className="profilePictureWrapper">
+
                 <img id="userCardProfilePicture" className="profilePicture" src={profilePicture} alt="avatar" />
-                <label htmlFor="profilePicture" className="inputFile">Edit Picture</label>
-                <input
-                    type="file"
-                    id="profilePicture"
-                    accept="/image/*"
-                    style={{ display: "none" }}
-                    onChange={(e) => handleProfileImage(e)}
-                />
+                <div className="editProfilePictureInput">
+                    <label htmlFor="editProfilePicture">Edit Picture</label>
+                    {/* {
+                        loading
+                            ? <p>Uploading...</p>
+                            : uploadBtn
+                                ? <button onClick={() => handleSubmit()}>Upload</button>
+                                : ""
+                    } */}
+                    <input
+                        type="file"
+                        id="editProfilePicture"
+                        accept="/image/*"
+                        style={{display:"none"}}
+                        onChange={(e) => handleProfileImage(e)}
+                    />
+
+                </div>
 
             </div>
-            {uploadBtn ? <button onClick={() => handleSubmit()}>Upload</button> : ""}
+
             <br />
             <p>{message}</p>
             <br />
@@ -77,7 +93,7 @@ function UserCard(props) {
                 {username}
             </h1>
             <p id="userBioWrapper">
-                {bio}
+                "{bio}"
             </p>
             <br />
             <div id="editBioWrapper">
