@@ -78,7 +78,6 @@ function UserCard(props) {
                         type="file"
                         id="editProfilePicture"
                         accept="/image/*"
-                        style={{display:"none"}}
                         onChange={(e) => handleProfileImage(e)}
                     />
 
