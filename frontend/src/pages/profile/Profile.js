@@ -183,7 +183,6 @@ function Profile() {
 
                             </div>
                             <Banner theme={theme} userInfo={userInfo} />
-
                             <UserCard theme={theme} userInfo={userInfo} numberOfPosts={page.total} />
                             <div className="flexCenter">
                                 <MainCard theme={theme} userInfo={userInfo} paginatedPosts={paginatedPosts.flat()} setPaginatedPosts={setPaginatedPosts} setPost={setPost} post={post} handleSubmit={handleSubmit} message={message} page={page} getPosts={getPosts} />
